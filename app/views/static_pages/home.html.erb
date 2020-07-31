@@ -1,0 +1,16 @@
+<% provide(:title, "Home") %>
+<!DOCTYPE html>
+<h1><%= @user.name %></h1>
+        <%= link_to "Log out", '#' %>
+<html>
+  <head>
+    <title> <%= yield(:title) %> | Simple_todo_list</title>
+  </head>
+  <body>
+
+    <h1> Simple todo list </h1>
+    <h3> From ruby garage </h3>
+    <%= link_to "Log in", '#' %>
+    <%= link_to "Sign up", signup_path %>  
+  </body>
+</html>
