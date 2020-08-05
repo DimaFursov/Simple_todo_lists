@@ -1,0 +1,7 @@
+<%= form_for((@project), remote: true) do |f| %><!-- id="new_project", remote: true асинхроннй запрос -->
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field"  >
+    <%= f.text_area :name, placeholder: "+ add Project" %>
+  </div>
+  <%= f.submit "+ add TODO List", class: "btn btn-primary" %>
+<% end %>

@@ -3,7 +3,12 @@ module SessionsHelper
   def log_in(user)
     session[:user_id] = user.id
   end
-
+=begin
+При постоянных сессиях мы хотим получать пользователя из временной сессии, если существует session [:user_id],
+ но иначе для получения пользователя (и осуществления входа) нужно искать по cookies [:user_id],
+  который имеет отношение к постоянной сессии.
+  user_id присвоение
+=end
   def current_user
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)
@@ -36,5 +41,8 @@ module SessionsHelper
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
-  end      
+  end
+  def current_user?(user)
+    user == current_user
+  end  
 end

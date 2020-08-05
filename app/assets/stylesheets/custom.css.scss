@@ -37,7 +37,25 @@ footer {
   }
 }
 /* forms */
+form {
+  padding: 15px;
+  border: 1px solid #666;
+  background: #fff;
+  /*display: none;*//* форму видно извачально */
+}
 
+#formButton {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+.projectsN{
+  list-style: none;
+  padding: 10px 0;
+  margin-left: 60px;
+  margin-right: 60px;
+  background-color: gray;
+}
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;

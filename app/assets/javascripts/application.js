@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$("#formButton").click(function() {
+    $("#new_project").toggle();
+  });

@@ -7,3 +7,13 @@
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
+
+<div class="projectsN">
+    <h3>Projects (<%= @user.projects.count %>)</h3>
+    <h3>Project 1: (<%= @user.projects.find_by(id: 1).to_s %>)</h3>
+    <h3> P1 (<%=current_user.projects.find_by(id: 1) %>)</h3>>
+    
+    <ol class="projects">
+      <%= render @projects %>
+    </ol>    
+</div>

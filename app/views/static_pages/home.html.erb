@@ -4,7 +4,16 @@
   <p>
   <%= render 'shared/user_info' %>
   </p>
+  <p>
   <%= link_to "Log out", logout_path %>
+  </p>
+  <h1> Simple todo list </h1>
+  <h3> From ruby garage </h3>
+      <button type="button" id="formButton">+ add_TODO_List</button>
+      <%= render 'shared/project_form' %>
+      <div class="projectsN">
+      <%= render 'shared/feedprojects' %>
+      </div>
     <% else %>
       <ul class="nav">
         <li><%= link_to "Log in", login_path %></li>
@@ -16,8 +25,5 @@
     <title> <%= yield(:title) %> | Simple_todo_list</title>
   </head>
   <body>
-
-    <h1> Simple todo list </h1>
-    <h3> From ruby garage </h3>        
   </body>
 </html>

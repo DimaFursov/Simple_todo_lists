@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :projects, dependent: :destroy
   attr_accessor :remember_token
   validates :name, presence: true, length: { maximum: 50 }
   before_save   :downcase_email
@@ -9,11 +10,14 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_secure_password
 
+  def feedprojects
+    Project.where("user_id = ?", id)
+  end  
+
   def authenticated?(attribute, token)
       digest = send("#{attribute}_digest")
       return false if digest.nil?
       BCrypt::Password.new(digest).is_password?(token)
-
   end
 
   def forget
