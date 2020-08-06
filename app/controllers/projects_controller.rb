@@ -3,8 +3,11 @@ class ProjectsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def create
+    @user= current_user
     @project = current_user.projects.build(project_params)
     if @project.save
+      @projects = current_user.projects
+      @project_count = current_user.projects.count
       flash[:success] = "---project created!---"
       respond_to do |format|
       format.html { redirect_to root_url }

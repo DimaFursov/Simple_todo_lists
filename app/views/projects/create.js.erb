@@ -1,8 +1,5 @@
-$("#new_project").html("<%= render('shared/new_project') %>");
-$("#stats").html('<%= @user.projects.count %>');
-/*$("#projects_count").html("<%= render('shared/stats') %>");*/
-
-/*$("#projectsN").html("<%= render('shared/feedprojects') %>");*/
-
-
-
+$(".new_project").html("<%= raw(escape_javascript(render('shared/project_form').html_safe))  %>");
+$(".stats").html('<%= current_user.projects.count %>');
+$(".projectsN").html("<%= raw(escape_javascript(render('shared/feedprojects').html_safe)) %>");
+/*$("#projects_count").html("<%= render('shared/stats') %>");
+$("#stats").html('<%= @user.projects.count %>');*/

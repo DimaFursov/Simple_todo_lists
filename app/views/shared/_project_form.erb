@@ -1,4 +1,4 @@
-<!--<div id="new_project">-->
+<div id="new_project">
 <%= form_for(@project, remote: true) do |f| %><!--, remote: true aсинхроннй запрос -->
   
   <%= render 'shared/error_messages', object: f.object %>
@@ -8,4 +8,4 @@
   <%= f.submit "+ add TODO List", class: "btn btn-primary" %>
 
 <% end %>
-<!--</div>   -->
+</div>
