@@ -1,13 +1,14 @@
-class ProjectController < ApplicationController
+class ProjectsController < ApplicationController
+  before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
-  def new
-    @project = Project.new
-    render :partial => 'projects/project'
-  end
+  #def new
+   # @projects = Project.new
+    #render :partial => 'projects/project'
+  #end
 
-  def index
-    @project = Project.all
-  end
+  #def index
+   # @projects = Project.all
+  #end
 
   def create
     @project = current_user.projects.build(project_params)
@@ -33,19 +34,24 @@ class ProjectController < ApplicationController
     @project.destroy
     flash[:success] = "Project deleted"
     redirect_to request.referrer || root_url
-  end  
+  end
+
+  #def project_params
+   #   params.require(:projects).permit(:name)
+  #end
 
   private
 
-    def set_project
-      @project = Project.find(params[:id])
+    def project_params
+     params.require(:projects).permit(:name)
     end
 
-    def project_params
-      params.require(:projects).permit(:name)
+    def set_project
+      @project = Project.find(params[:id])
     end
     def correct_user
       @project = current_user.projects.find_by(id: params[:id])
       redirect_to root_url if @project.nil?
     end        
-end
+  end
+end  

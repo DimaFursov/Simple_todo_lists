@@ -9,6 +9,16 @@
   </p>
   <h1> Simple todo list </h1>
   <h3> From ruby garage </h3>
+      
+      <%= form_for(@project) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      
+      <div class="field">
+      <%= f.text_area :name, placeholder: "+ input Project name" %>
+      </div>
+      <%= f.submit "+ add PROJECT name", class: "btn btn-primary" %>
+      <% end %>
+      
       <button type="button" id="formButton">+ add_TODO_List</button>
       <%= render 'shared/project_form' %>
       <div class="projectsN">
