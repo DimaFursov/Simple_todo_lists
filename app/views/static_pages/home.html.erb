@@ -1,29 +1,21 @@
 <% provide(:title, "Home") %>
 <!DOCTYPE html>
 <% if logged_in? %>
-  <p>
-  <%= render 'shared/user_info' %>
-  </p>
-  <p>
-  <%= link_to "Log out", logout_path %>
-  </p>
+  <p>  <%= render 'shared/user_info' %>  </p>
+  <p>  <%= link_to "Log out", logout_path %>  </p>
   <h1> Simple todo list </h1>
   <h3> From ruby garage </h3>
-      
-      <%= form_for(@project) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <div class="field">
-      <%= f.text_area :name, placeholder: "+ input Project name" %>
-      </div>
-      <%= f.submit "+ add PROJECT name", class: "btn btn-primary" %>
-      <% end %>
+    <p id="">Projects (<%= @project_count %>)</p>
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
 
-      <button type="button" id="formButton">+ add_TODO_List</button>
+    <%= render 'shared/feedprojects' %>
+    
+    <button type="button" id="formButton">+ add_TODO_List</button>
       <%= render 'shared/project_form' %>
-      <div class="projectsN">
-      <%= render 'shared/feedprojects' %>
-      </div>
-    <% else %>
+      
+      <% else %>
       <ul class="nav">
         <li><%= link_to "Log in", login_path %></li>
         <li><%= link_to "Sign up", signup_path %></li>

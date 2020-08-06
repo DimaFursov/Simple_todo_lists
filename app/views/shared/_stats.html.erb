@@ -1,0 +1,7 @@
+<% @user ||= current_user %>
+<div class="projects_count">
+  Projects  
+  <strong id="stats" >
+    <%= @user.projects.count %>
+  </strong>
+</div>    

@@ -5,8 +5,12 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.build(project_params)
     if @project.save
-      flash[:success] = "project created!"
-      redirect_to root_url
+      flash[:success] = "---project created!---"
+      respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+      #format.flash {[:success] = "---project created!---"}
+      end
     else
       @feed_itemsprojects = []
       render 'static_pages/home'
@@ -33,7 +37,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name) #оброшение к классу ":project"
+    params.require(:project).permit(:name)
   end
 
   def set_project

@@ -16,6 +16,6 @@
 //= require_tree .
 $(document).ready(function() {
 $("#formButton").click(function() {
-    $("#new_project").toggle();
+    $(".new_project").toggle();
   });
 });

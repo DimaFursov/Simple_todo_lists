@@ -14,9 +14,6 @@ class UsersController < ApplicationController
       log_in @user
       flash[:success] = "Welcome"
       redirect_to root_url
-      #log_in @user
-      #flash[:success] = "Welcome"        
-      #redirect_to root_url   
     else
       render 'new'
     end
