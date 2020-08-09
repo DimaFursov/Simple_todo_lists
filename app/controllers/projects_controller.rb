@@ -1,6 +1,15 @@
 class ProjectsController < ApplicationController
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
+  def index
+    @projects = Project.all
+  end
+  def new
+    @project = Project.new    
+  end
+  def show
+  end    
 
   def create
     @user= current_user
@@ -12,8 +21,9 @@ class ProjectsController < ApplicationController
       respond_to do |format|
       format.html { redirect_to root_url }
       format.js
-      #format.flash {[:success] = "---project created!---"}
+      @project = Project.new
       end
+
     else
       @feed_itemsprojects = []
       render 'static_pages/home'
