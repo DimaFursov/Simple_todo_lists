@@ -1,0 +1,5 @@
+<%= form_for(current_user.projects.find_by(project_id: @user.id),
+             html: { method: :delete },
+             remote: true) do |f| %>
+  <%= f.submit "delete", class: "btn" %>
+<% end %>

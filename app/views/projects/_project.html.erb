@@ -1,7 +1,12 @@
 <li id="project-<%= project.id %>">
-  <span class="name"><%= project.name %></span>    
+ 
     <% if current_user?(project.user) %>
-      <%= link_to "delete", project, method: :delete,
-                                       data: { confirm: "You sure?" } %>
-    <% end %>
+      <span class="name"><%= project.name %></span><!--index первый в списке-->
+      <%= link_to image_tag("update.svg", id: "update_project_svg", alt: "update"), '#', class: "update_project", remote: true %>
+      <%= link_to image_tag("delete.svg", id: "delete_project_svg", alt: "delete"), '#', 
+                                          class: "delete_project",
+                                          data: { id: project.id } %>
+      
+      
+    <% end %>    
 </li>

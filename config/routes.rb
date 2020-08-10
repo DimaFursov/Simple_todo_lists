@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   post  'projects' => 'projects#create'
   patch  'projects' => 'projects#update'
+
   #resources :users do
    # collection do
     #  get :stats

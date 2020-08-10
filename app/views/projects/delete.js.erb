@@ -1,0 +1,11 @@
+$("#delete_project").html("<%= raw(escape_javascript(render('shared/feedprojects').html_safe)) %>");
+/*$("#delete_project").onclick("<%= raw(escape_javascript(render('projects/destroy').html_safe)) %>");*/
+/*.onclick(*/
+/*window.addEventListener("load", () => {
+  const links = document.querySelectorAll("a[data-remote]");
+  links.forEach((element) => {
+    element.addEventListener("ajax:success", () => {
+      alert("The project was deleted.");
+    });
+  });
+})*/

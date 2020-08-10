@@ -1,5 +1,7 @@
 $(".new_project").html("<%= raw(escape_javascript(render('shared/project_form').html_safe))  %>");
-$(".stats").html('<%= current_user.projects.count %>');
+$(".stats").html("<%= raw(escape_javascript(render('shared/stats').html_safe))  %>");
 $(".projectsN").html("<%= raw(escape_javascript(render('shared/feedprojects').html_safe)) %>");
+/*$(".stats").html('<%= current_user.projects.count %>');*/
+/*$("#delete_project").html('<%= @project.destroy %>');*/
 /*$("#projects_count").html("<%= render('shared/stats') %>");
-$("#stats").html('<%= @user.projects.count %>');*/
+/*$("#stats").html('<%= @user.projects.count %>');*/

@@ -2,14 +2,17 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
-  def index
+  def index # первый 
     @projects = Project.all
   end
   def new
     @project = Project.new    
   end
   def show
-  end    
+    @project = Project.find(params[:id])
+    render json: @project
+  end
+
 
   def create
     @user= current_user
@@ -23,7 +26,6 @@ class ProjectsController < ApplicationController
       format.js
       @project = Project.new
       end
-
     else
       @feed_itemsprojects = []
       render 'static_pages/home'
@@ -32,7 +34,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to root_url, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -43,7 +45,12 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     flash[:success] = "Project deleted"
-    redirect_to request.referrer || root_url
+    #redirect_to root_url
+    #redirect_to request.referrer || root_url
+    render json: {status: 'ok'}
+    #respond_to do |format|
+    #  format.js
+    #end
   end
 
 
