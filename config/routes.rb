@@ -9,16 +9,7 @@ Rails.application.routes.draw do
   post  'projects' => 'projects#create'
   patch  'projects' => 'projects#update'
 
-  #resources :users do
-   # collection do
-    #  get :stats
-    #end
-  #end
-  resources :users do
-    member do
-     get :stats
-   end
-  end
+  resources :users   
   resources :projects,            only: [:index, :create, :update, :show, :destroy]
 
 end

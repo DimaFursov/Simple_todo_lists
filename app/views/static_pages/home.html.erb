@@ -6,6 +6,7 @@
   <h1> Simple todo list </h1>
   <h3> From ruby garage </h3>
     <p id="">Projects (<%= @project_count %>)</p>
+    
       <section class="stats">
         <%= render 'shared/stats' %>
       </section>
@@ -14,12 +15,13 @@
 
 
 
-    
+    <!--
     <a id="delete2" href="projects/1" data-method="delete">Link to delete first project </a>
     <div id="random-text"><p class="pWithClass">Paragraph with a class.</p></div>
     <div id="random-image"><img alt="logo" src="/assets/logo.svg" id="logo" /></div>
     <div class="div1"></div>
     <button type="button" id="userButton" >delete project</button>
+  -->
     <button type="button" id="formButton">+ add_TODO_List</button>
       <%= render 'shared/project_form' %>
       

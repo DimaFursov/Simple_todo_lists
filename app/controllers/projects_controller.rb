@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
+  
   def index # первый 
     @projects = Project.all
   end
@@ -47,7 +48,7 @@ class ProjectsController < ApplicationController
     flash[:success] = "Project deleted"
     #redirect_to root_url
     #redirect_to request.referrer || root_url
-    render json: {status: 'ok'}
+    render plain: "OK1"
     #respond_to do |format|
     #  format.js
     #end
