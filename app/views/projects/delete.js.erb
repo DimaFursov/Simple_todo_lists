@@ -1,4 +1,16 @@
-$("#delete_project").html("<%= raw(escape_javascript(render('shared/feedprojects').html_safe)) %>");
+/*$("#delete_button_" + '<%= @project_id_js %>').click(function() {  
+    alert("alert js.erb");
+    var id = this.dataset.id
+    $.ajax({
+      url: '/projects/' + id,
+      type: 'DELETE',
+      success: function(result) { 
+        alert("success js.erb");    
+        $("#project-"+ id).remove("#project-"+ id);
+      }
+    });
+  });
+/*$("#delete_project").html("<%= raw(escape_javascript(render('shared/feedprojects').html_safe)) %>");
 /*$("#delete_project").onclick("<%= raw(escape_javascript(render('projects/destroy').html_safe)) %>");*/
 /*.onclick(*/
 /*window.addEventListener("load", () => {

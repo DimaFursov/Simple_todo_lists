@@ -1,27 +1,21 @@
 <% provide(:title, "Home") %>
 <!DOCTYPE html>
 <% if logged_in? %>
+  <ul class="example">
+    <li>Игрок 1 <a href="javascript: return false;" class="remove-button right">Удалить</a></li>    
+  </ul>
+  <a href="javascript: return false;" class="create-button">добавить</a>
   <p>  <%= render 'shared/user_info' %>  </p>
   <p>  <%= link_to "Log out", logout_path, method: "delete" %>  </p>
   <h1> Simple todo list </h1>
   <h3> From ruby garage </h3>
+
     <p id="">Projects (<%= @project_count %>)</p>
     
       <section class="stats">
         <%= render 'shared/stats' %>
       </section>
     <%= render 'shared/feedprojects' %>
-
-
-
-
-    <!--
-    <a id="delete2" href="projects/1" data-method="delete">Link to delete first project </a>
-    <div id="random-text"><p class="pWithClass">Paragraph with a class.</p></div>
-    <div id="random-image"><img alt="logo" src="/assets/logo.svg" id="logo" /></div>
-    <div class="div1"></div>
-    <button type="button" id="userButton" >delete project</button>
-  -->
     <button type="button" id="formButton">+ add_TODO_List</button>
       <%= render 'shared/project_form' %>
       

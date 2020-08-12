@@ -9,16 +9,18 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new    
   end
-  def show
+  def show # должны работать как апи все запросы возвращать json с объектом или меседжом
     @project = Project.find(params[:id])
-    render json: @project
+    #render json: @project
   end
 
 
   def create
+    @simple_number = 186 #работает
     @user= current_user
-    @project = current_user.projects.build(project_params)
-    if @project.save
+    @project = current_user.projects.build(project_params) # не видет id
+    @project_id_js = @project.id.to_s
+    if @project.save      
       @projects = current_user.projects
       @project_count = current_user.projects.count
       flash[:success] = "---project created!---"
@@ -44,21 +46,19 @@ class ProjectsController < ApplicationController
     end  
   end  
   def destroy
+    @project_id_js = @project.id
     @project.destroy
     flash[:success] = "Project deleted"
     #redirect_to root_url
     #redirect_to request.referrer || root_url
-    render plain: "OK1"
-    #respond_to do |format|
-    #  format.js
-    #end
+    render plain: "delete"
   end
 
 
   private
 
   def project_params
-    params.require(:project).permit(:name)
+    params.require(:project).permit(:name) #разрешение на редактирование
   end
 
   def set_project

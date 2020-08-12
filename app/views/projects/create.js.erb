@@ -1,16 +1,34 @@
 $(".new_project").html("<%= raw(escape_javascript(render('shared/project_form').html_safe))  %>");
 $(".stats").html("<%= raw(escape_javascript(render('shared/stats').html_safe))  %>");
 $(".projectsN").html("<%= raw(escape_javascript(render('shared/feedprojects').html_safe)) %>");
-
-
-/*
-$(document).querySelector('dataset.id').click(function() {//Нужна инициализация клика для новосозданного проекта, убрать удаляет проект после обновленмя страницы
-    var delete_project = document.querySelector('.delete_project');
+$('.delete_project').click(function() {  
+    var id = this.dataset.id
     $.ajax({
-    url: '/projects/' + delete_project.dataset.id,
-    type: 'DELETE',
-    success: function(result) {
-        $("#project-"+ delete_project.dataset.id).remove("#project-"+ delete_project.dataset.id);
-    }
-});
-});*/
+      url: '/projects/' + id,
+      type: 'DELETE',
+      success: function(result) { 
+        alert("success del create.js.erb"+"#project-"+ id);    
+        $("#project-"+ id).remove("#project-"+ id);
+      }
+    });
+  });
+$('#delete_button_'+'<%=@project_id_js%>').html("dynamically_selector");
+  /* $('#delete_button_<%= @project.id %>')
+  @project.id is converted into a string. If you place <%= %> in a js.erb file, that code is evaluated an printed in the resultant JS.
+  
+  '' если в удаленном месте '.delete_project' '#delete_button_'+'<%= @project_id_js %>'*/
+  /*
+  $('.delete_project').click(function() {  
+    alert("alert js.erb");
+    var id = this.dataset.id
+    $.ajax({
+      url: '/projects/' + id,
+      type: 'DELETE',
+      success: function(result) { 
+        alert("success js.erb"+"#project-"+ id);    
+        $("#project-"+ id).remove("#project-"+ id);
+      }
+    });
+  });
+
+  */
