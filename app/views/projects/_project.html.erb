@@ -1,12 +1,16 @@
 <li id="project-<%= project.id %>">
  
-    <% if current_user?(project.user) %>
-      <span class="name"><%= project.name %> project.id:<%= project.id %></span><!--удаление отображает index первый в списке после логина и попытки удалить  -->
-      <span><%= link_to image_tag("update.svg", id: "update_project_svg", alt: "update"), '#', class: "update_project", remote: true %></span>
-      <span><%= link_to image_tag("delete.svg", id: "delete_project_svg", alt: "delete"), '#',  
+
+      <span class="project_input" id="project_input_<%=project.id%>">
+        <input class="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
+        <div class="update_project" data-id="<%=project.id%>">UPDATE</div>               
+      </span>
+      <span class="project_name" id="project_name_<%=project.id%>"><%= project.name %></span>          
+      <span><div class="edit_project" data-id="<%=project.id%>">EDIT</div></span> 
+      <span><%= link_to image_tag("delete.svg", id: "delete_project_svg", alt: "delete"), '#', target:"_blank",  
                                           class: "delete_project", id: "delete_button_#{project.id}",
-                                          data: { id: project.id }, remote: true %></span>
+                                          data: { id: project.id }, remote: true %></span><!--сделать div-->
       
       
-    <% end %>    
+
 </li>

@@ -19,43 +19,53 @@ $(document).ready(function() {
   $("#formButton").click(function() {
       $(".new_project").toggle();    
     });
-  $("p").hover(function(){
-      $(this).css("background-color", "yellow");
-  }, function(){
-      $(this).css("background-color", "pink");
-  });
   $(".new_project").show("slow");/*remove afterfinish work*/
-  $('.delete_project').click(function() {//Нужна инициализация клика для новосозданного проекта, убрать удаляет проект после обновленмя страницы
+  $(document).on('click', '.delete_project', function() {//Нужна инициализация клика для новосозданного проекта, убрать удаляет проект после обновленмя страницы
     var id = this.dataset.id
     $.ajax({
       url: '/projects/' + id,
       type: 'DELETE',
       success: function(result) {
-        alert("success application.js"+"#project-"+ id); 
+        alert("success delete application.js"+"#project-"+ id); 
         $("#project-"+ id).remove("#project-"+ id);        
       }      
     });
   });
-/*$("#delete_button_186").html("text")*/
-  $("body").on("click", ".remove-button", function () {
-        $(this).parent().remove();
+  $(document).on('click', '.edit_project', function() {
+    var dataset_id =this.dataset.id
+    $("#project_input_" + dataset_id).toggle();
+    $("#project_name_" + dataset_id).toggle();
+  });
+  $(document).on('click', '.update_project', function() {
+    var dataset_id = this.dataset.id;
+    var new_project_name = $(".project_edit_"+dataset_id).val()
+    $.ajax({
+      url: '/projects/' + dataset_id,
+      type: 'PATCH',
+      data: {project: {name: new_project_name}},
+      success: function(update_data) {
+        $("#project_name_" + dataset_id).text(update_data.name);
+        $("#project_input_" + dataset_id).toggle();
+        $("#project_name_" + dataset_id).toggle();
+      }      
+    });
+  });  
+});  
+  /*project.name="string" project.save t.string :name  params.require(:project).permit(:name) #разрешение на редактирование*/
+  /*
+  $(document).on('click', '.update_project', function() {
+      var id = this.dataset.id;
+      var update_data=$(".name").text();
+      var update_name = $(text_area);
+      $.ajax({
+        url: '/projects/' + id,
+        type: 'PATCH',
+        data: {name: input field},
+        success: function(update_data) {
+          alert("success update application.js"+"#project-"+ id);
+          data = JSON.toString(update_name);               
+        }      
       });
-
-  $("body").on("click", ".create-button", function () {
-        var countPlayers = $('.example li').length;/*количество в списке*/
-        var player = '<li>Игрок ' + (countPlayers+1)  + 
-        ' <a href="javascript: return false;" class="remove-button right">Удалить</a></li>';
-        $('.example').append(player); 
-      });
-/*для динамических элементов используется делегированная обработка событий.
-обработчики «навешиваются» не на отсутствующие 
-в dom элементы, а на существующий родительский объект. body
-будет вызван данный обработчик для всех элементов,
- соответствующих селектору, даже если этих элементов не было во время объявлении обработчика (например при загрузке страницы).
-*/
-
-
-
-
-
-});
+    });
+  });
+  */

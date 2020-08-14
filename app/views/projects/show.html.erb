@@ -11,6 +11,6 @@
   <strong>Project id:</strong>
   <%= @project.id %>
 </p>
-
+<%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'New User', new_user_path %> |
 <%= link_to 'Back to users Listing', users_path %>

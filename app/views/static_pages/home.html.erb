@@ -1,10 +1,6 @@
 <% provide(:title, "Home") %>
 <!DOCTYPE html>
 <% if logged_in? %>
-  <ul class="example">
-    <li>Игрок 1 <a href="javascript: return false;" class="remove-button right">Удалить</a></li>    
-  </ul>
-  <a href="javascript: return false;" class="create-button">добавить</a>
   <p>  <%= render 'shared/user_info' %>  </p>
   <p>  <%= link_to "Log out", logout_path, method: "delete" %>  </p>
   <h1> Simple todo list </h1>

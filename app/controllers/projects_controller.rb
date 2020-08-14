@@ -1,9 +1,9 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only: [:create, :destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :set_project, only: [:show, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:destroy, :edit, :update]
   
-  def index # первый 
+  def index
     @projects = Project.all
   end
   def new
@@ -14,13 +14,10 @@ class ProjectsController < ApplicationController
     #render json: @project
   end
 
-
   def create
-    @simple_number = 186 #работает
     @user= current_user
-    @project = current_user.projects.build(project_params) # не видет id
-    @project_id_js = @project.id.to_s
-    if @project.save      
+    @project = current_user.projects.build(project_params)
+    if @project.save
       @projects = current_user.projects
       @project_count = current_user.projects.count
       flash[:success] = "---project created!---"
@@ -34,17 +31,19 @@ class ProjectsController < ApplicationController
       render 'static_pages/home'
     end
   end
-  def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to root_url, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+
+  def edit
+    @projectID = Project.find(params[:id])
+  end
+
+  def update # PATCH ---------------------
+    if @project.update(project_params)#update_attributes  
+      render json: @project 
+    else
+      render json: @project.errors, status: :unprocessable_entity
     end  
   end  
+        
   def destroy
     @project_id_js = @project.id
     @project.destroy
@@ -58,7 +57,9 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
+    #binding.pry #ошибки в котроллере
     params.require(:project).permit(:name) #разрешение на редактирование
+                   #json ключ текст 
   end
 
   def set_project
