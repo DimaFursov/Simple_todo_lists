@@ -1,31 +1,31 @@
 <% provide(:title, "Home") %>
 <!DOCTYPE html>
-<% if logged_in? %>
-  <p>  <%= render 'shared/user_info' %>  </p>
-  <p>  <%= link_to "Log out", logout_path, method: "delete" %>  </p>
-  <h1> Simple todo list </h1>
-  <h3> From ruby garage </h3>
-
-    <p id="">Projects (<%= @project_count %>)</p>
     
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-    <%= render 'shared/feedprojects' %>
-    <button type="button" id="formButton">+ add_TODO_List</button>
-      <%= render 'shared/project_form' %>
-      
-      <% else %>
-      <ul class="nav">
-        <li><p> Simple todo list </p></li>
-        <li><%= link_to "Log in", login_path %></li>
-        <li><%= link_to "Sign up", signup_path %></li>
-      </ul>
-    <% end %>      
 <html>
   <head>
     <title> <%= yield(:title) %> | Simple_todo_list</title>
   </head>
   <body>
+    <% if logged_in? %>
+      <p>  <%= render 'shared/user_info' %>  </p>
+      <p>  <%= link_to "Log out", logout_path, method: "delete" %>  </p>
+      <h1> Simple todo list </h1>
+      <h3> From ruby garage </h3>
+
+    
+    
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
+      <%= render 'shared/feedprojects' %>
+      <button type="button" id="formButton">+ add_TODO_List</button>
+      <%= render 'shared/project_form' %>
+    <% else %>
+      <ul class="nav">
+        <li><p> Simple todo list </p></li>
+        <li><%= link_to "Log in", login_path %></li>
+        <li><%= link_to "Sign up", signup_path %></li>
+      </ul>
+    <% end %>  
   </body>
 </html>

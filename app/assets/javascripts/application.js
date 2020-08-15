@@ -34,20 +34,20 @@ $(document).ready(function() {
   $(document).on('click', '.edit_project', function() {
     var dataset_id =this.dataset.id
     $("#project_input_" + dataset_id).toggle();
-    $("#project_name_" + dataset_id).toggle();
+    $("#form_project_name_" + dataset_id).toggle();    
   });
   $(document).on('click', '.update_project', function() {
     var dataset_id = this.dataset.id;
-    var new_project_name = $(".project_edit_"+dataset_id).val()
+    var new_project_name = $("#project_edit_"+dataset_id).val()/*id класс класс в стили*/
     $.ajax({
       url: '/projects/' + dataset_id,
       type: 'PATCH',
       data: {project: {name: new_project_name}},
       success: function(update_data) {
-        $("#project_name_" + dataset_id).text(update_data.name);
         $("#project_input_" + dataset_id).toggle();
-        $("#project_name_" + dataset_id).toggle();
-      }      
+        $("#project_name_" + dataset_id).text(update_data.name);/* style="display: block;"*/        
+        $("#form_project_name_" + dataset_id).toggle();/**/ 
+      }        
     });
   });  
 });  

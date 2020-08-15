@@ -1,17 +1,76 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-.edit_project{
-  cursor: pointer;
-}
-.update_project{
-  cursor: pointer;
-}
-.project_input{
-  display: none;
-}
+
 body {
+  background-color: orange;
   padding-top: 60px;
+  padding-bottom: 60px;
   text-align: center;
+
+  .projectsN{
+      margin-right: 10px;    
+      padding-bottom: 10px;
+      margin-bottom: 10px;/* 100px*/
+    /*auto !important;*/  /* margin-bottom: 10px; padding-bottom: 10px;  list-style: none;   padding: 10px 0;  margin-left: 60px;  margin-right: 10px;  */
+    ol{
+      margin-left: 10px;
+      padding-left: 0px;
+    }
+    ul{
+      padding-left: 0px;/* 40px */
+      background-color: #a8a8a8;
+      padding-bottom: 111px;
+      margin-bottom: 20px;
+    }
+
+    span{    
+      line-height: 1;
+      width:100%;
+      font-weight: normal;
+    }
+
+    .project_edit{
+      width: 85%;
+    }
+
+    .edit_project{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .update_project{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .delete_project{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .project_input{
+      display: none;
+    }
+
+    .project_name{
+      float:left;/*contents;/* inline;*/      
+    }  
+  }
+
+  #formButton {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  }
+
+  .new_project{  
+  border: 10px red #666;
+  background: red;
+  display: none;/* форму видно извачально */
+  }
 }
 
 section {
@@ -30,10 +89,28 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* footer */
 
+/* forms */
+input {
+  height: auto !important;
+}
+form {
+  padding: 15px;
+  border: 1px solid #666;
+  background: #fff;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+}
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+/* footer */
 footer {
-  
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px white;
@@ -43,81 +120,4 @@ footer {
         align: center;
         }
   }
-}
-/* forms */
-form {
-  padding: 15px;
-  border: 1px solid #666;
-  background: #fff;
-  
-}
-#new_project{
-  border: 10px red #666;
-  background: red;
-  display: none;/* форму видно извачально */
-}
-
-
-#formButton {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-}
-.projectsN{
-  list-style: none;
-  padding: 10px 0;
-  margin-left: 60px;
-  margin-right: 60px;
-  background-color: #a8a8a8;
-}
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-input {
-  height: auto !important;
-}
-
-/* sidebar */
-
-aside {
-  section.user_info {
-    margin-top: 20px;
-  }
-  section {
-    padding: 10px 0;
-    margin-top: 20px;
-    &:first-child {
-      border: 0;
-      padding-top: 0;
-    }
-    span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1;
-    }
-    h1 {
-      font-size: 1.4em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-  }
-}
-
-.checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  span {
-    margin-left: 20px;
-    font-weight: normal;
-  }
-}
-
-#session_remember_me {
-  width: auto;
-  margin-left: 0;
 }

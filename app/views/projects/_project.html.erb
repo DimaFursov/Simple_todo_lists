@@ -1,16 +1,13 @@
-<li id="project-<%= project.id %>">
- 
-
-      <span class="project_input" id="project_input_<%=project.id%>">
-        <input class="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
-        <div class="update_project" data-id="<%=project.id%>">UPDATE</div>               
-      </span>
-      <span class="project_name" id="project_name_<%=project.id%>"><%= project.name %></span>          
-      <span><div class="edit_project" data-id="<%=project.id%>">EDIT</div></span> 
-      <span><%= link_to image_tag("delete.svg", id: "delete_project_svg", alt: "delete"), '#', target:"_blank",  
-                                          class: "delete_project", id: "delete_button_#{project.id}",
-                                          data: { id: project.id }, remote: true %></span><!--сделать div-->
-      
-      
-
-</li>
+<ul id="project-<%= project.id %>">
+  <span class="form_delete_project" id="form_delete_project_<%=project.id%>">
+    <div class="delete_project" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
+  </span>
+  <span class="project_input" id="project_input_<%=project.id%>">
+    <input class="project_edit" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
+    <div class="update_project" data-id="<%=project.id%>">UPDATE</div>               
+  </span>
+  <span class="form_project_name" id="form_project_name_<%=project.id%>">
+    <div class="project_name" id="project_name_<%=project.id%>"><%= project.name %></div>        
+    <div class="edit_project" data-id="<%=project.id%>">EDIT</div>
+  </span>
+</ul>
