@@ -8,23 +8,20 @@
   <body>
     <% if logged_in? %>
       <p>  <%= render 'shared/user_info' %>  </p>
-      <p>  <%= link_to "Log out", logout_path, method: "delete" %>  </p>
+      <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
-      <h3> From ruby garage </h3>
-
-    
-    
+      <h3> From ruby garage </h3>    
       <section class="stats">
         <%= render 'shared/stats' %>
       </section>
       <%= render 'shared/feedprojects' %>
-      <button type="button" id="formButton">+ add_TODO_List</button>
+      <button class="btn btn-primary" type="button" id="formButton">+ add_TODO_List</button>
       <%= render 'shared/project_form' %>
     <% else %>
       <ul class="nav">
         <li><p> Simple todo list </p></li>
-        <li><%= link_to "Log in", login_path %></li>
-        <li><%= link_to "Sign up", signup_path %></li>
+        <li><%= link_to "Log in", login_path, class: "btn btn-primary" %></li>
+        <li><%= link_to "Sign up", signup_path, class: "btn btn-primary" %></li>
       </ul>
     <% end %>  
   </body>
