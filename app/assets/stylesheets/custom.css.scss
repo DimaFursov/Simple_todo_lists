@@ -57,7 +57,58 @@ body {
 
     .project_name{
       float:left;/*contents;/* inline;*/      
-    }  
+    }
+    /*  --tasks--  */
+    .tasks{
+      padding-top: 40px;
+    }
+    ol{
+      margin-left: 10px;
+      padding-left: 0px;
+    }
+    ul{
+      padding-left: 0px;/* 40px */
+      background-color: #ccc;
+      padding-bottom: 111px;
+      margin-bottom: 20px;
+    }
+
+    span{    
+      line-height: 1;
+      width:100%;
+      font-weight: normal;
+    }
+
+    .task_edit{
+      width: 85%;
+    }
+
+    .edit_project{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .update_project{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .delete_project{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .task_input{
+      display: none;
+    }
+
+    .project_name{
+      float:left;/*contents;/* inline;*/      
+    }
+
   }
 
   #formButton {

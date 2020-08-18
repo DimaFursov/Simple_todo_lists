@@ -10,21 +10,9 @@
     <div class="project_name" id="project_name_<%=project.id%>"><%= project.name %></div>        
     <div class="edit_project" data-id="<%=project.id%>">EDIT</div>
   </span>
+  <div class="tasks">
   <% project.tasks.each do |task| %>
-    <ul>
-      <span>
-      <div>  
-        <strong>Task name:</strong>
-        <%= task.name %>
-        <strong>Task id:</strong>
-        <%= task.id %>
-        <strong>Task project_id:</strong>
-        <%= task.project_id %>
-      </div>
-      </span>
-    </ul>
-    <%= render 'tasks/task', locals: { task: task } %>
-
-    
-  <% end %>        
+    <%= render task %>
+  <% end %>
+  </div>        
 </ul>

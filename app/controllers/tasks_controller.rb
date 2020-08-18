@@ -2,7 +2,7 @@ class TasksController < ApplicationController
 before_action :correct_project,   only: [ :destroy, :edit, :update]
     #вытянуть из базы таски чей :project_id соответствует id проекта 
   # SELECT * FROM tasks WHERE project_id = <project id>
-  
+
   def index
     @tasks = Task.all
   end
