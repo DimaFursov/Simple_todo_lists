@@ -1,0 +1,17 @@
+<ul id="task-<%= task.id %>">
+  <span class="form_delete_task" id="form_delete_task_<%=task.id%>">
+    <div class="delete_task" id="delete_task_button_<%=task.id%>" data-id="<%=task.id%>">DELETE</div>
+  </span>
+  <span class="task_input" id="task_input_<%=task.id%>">
+    <input class="task_edit" class="form-control" id="task_edit_<%=task.id%>" value="<%= task.name %>"></input>
+    <div class="update_task" data-id="<%=task.id%>">UPDATE</div>               
+  </span>
+  <span class="form_task_name" id="form_task_name_<%=task.id%>">
+    <div class="task_name" id="task_name_<%=task.id%>"><%= task.name %></div>        
+    <div class="edit_task" data-id="<%=task.id%>">EDIT</div>
+  </span>
+  <span class="project"><%= link_to task.project.name, task.project %></span>  
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(project.created_at) %> ago.
+  </span>
+</ul>

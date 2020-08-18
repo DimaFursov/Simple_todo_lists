@@ -9,9 +9,10 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new    
   end
-  def show # должны работать как апи все запросы возвращать json с объектом или меседжом
-    @project = Project.find(params[:id])
-    #render json: @project
+  def show 
+    @project = Project.find(params[:id]) # @project должна предналежать Active Record::Relation
+    @task = Task.find(params[:project_id])
+    @tasks = @project.tasks        
   end
 
   def create
@@ -36,7 +37,7 @@ class ProjectsController < ApplicationController
     @projectID = Project.find(params[:id])
   end
 
-  def update # PATCH ---------------------
+  def update 
     if @project.update(project_params)#update_attributes  
       render json: @project 
     else

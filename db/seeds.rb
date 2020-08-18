@@ -1,19 +1,16 @@
-User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
+1.times do |n|
+  User.create!(name:  "Example User",
+             email: "example@mail.com",
              password:              "123123",
              password_confirmation: "123123")
-
-2.times do |n|
-  name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
-  password = "password"
-  User.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password)
 end
-users = User.order(:created_at).take(6)
-10.times do
+users = User.order(:created_at).take(3)
+3.times do
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.projects.create!(name: content) }
+end
+projects = Project.order(:created_at).take(3)
+3.times do
+  content = Faker::Lorem.sentence(5)
+  projects.each { |project| project.tasks.create!(name: content) }
 end

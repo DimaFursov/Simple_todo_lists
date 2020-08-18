@@ -1,0 +1,12 @@
+<% @tasks.each do |task| %>
+  <ol>
+    <li>
+      <strong>Task id:</strong>
+      <%= task.id %>
+      <strong>Task name:</strong>
+      <%= task.name %>
+      <strong>Task project_id:</strong>
+      <%= task.project_id %>
+    </li>  
+  </ol>  
+<% end %>

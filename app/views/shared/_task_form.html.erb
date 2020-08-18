@@ -1,0 +1,6 @@
+<%= form_for(@task) do |f| %>
+  <div class="field">
+    <%= f.text_area :name, placeholder: "+ add new task" %>
+  </div>
+  <%= f.submit "Add Task", class: "btn btn-primary" %>
+<% end %>

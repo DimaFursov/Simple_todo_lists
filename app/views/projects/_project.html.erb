@@ -10,4 +10,19 @@
     <div class="project_name" id="project_name_<%=project.id%>"><%= project.name %></div>        
     <div class="edit_project" data-id="<%=project.id%>">EDIT</div>
   </span>
+  <% @tasks.each do |task| %>
+    <% if project.id = task.project_id %>
+    <ul>
+      <span>
+      <div>  
+        <strong>Task name:</strong>
+        <%= task.name %>
+        <strong>Task project_id:</strong>
+        <%= task.project_id %>
+      </div>
+      </span>
+    </ul>
+
+    <% end %>
+  <% end %>        
 </ul>
