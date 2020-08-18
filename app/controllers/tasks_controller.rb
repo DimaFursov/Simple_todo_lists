@@ -2,22 +2,7 @@ class TasksController < ApplicationController
 before_action :correct_project,   only: [ :destroy, :edit, :update]
     #вытянуть из базы таски чей :project_id соответствует id проекта 
   # SELECT * FROM tasks WHERE project_id = <project id>
-  def list_tasks_project
-    @list_tasks_project = Projects.where("project_id = ?", id)
-  end  
-  def task_project_id
-    @task_project_id = Task.find(params[:project_id])    
-  end
-  def list_tasks_projest
-    projects
-  end  
-  def NOT_CONST
-    $NOT_CONST = "NOT_CONST"
-  end  
-
-
-
-
+  
   def index
     @tasks = Task.all
   end

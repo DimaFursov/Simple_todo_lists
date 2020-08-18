@@ -10,8 +10,5 @@
     <div class="task_name" id="task_name_<%=task.id%>"><%= task.name %></div>        
     <div class="edit_task" data-id="<%=task.id%>">EDIT</div>
   </span>
-  <span class="project"><%= link_to task.project.name, task.project %></span>  
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(project.created_at) %> ago.
-  </span>
+
 </ul>

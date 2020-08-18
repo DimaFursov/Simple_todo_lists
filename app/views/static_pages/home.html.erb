@@ -7,19 +7,7 @@
   </head>
   <body>
     <% if logged_in? %>
-    <%= $NOT_CONST %> 
-      <% @tasks.each do |task| %>
-        <ol>
-          <li>
-            <strong>Task id:</strong>
-            <%= task.id %>
-            <strong>Task name:</strong>
-            <%= task.name %>
-            <strong>Task project_id:</strong>
-            <%= task.project_id %>            
-          </li>  
-        </ol>  
-      <% end %>      
+    
       <p>  <%= render 'shared/user_info' %>  </p>
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
