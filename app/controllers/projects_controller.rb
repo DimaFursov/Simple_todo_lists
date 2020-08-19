@@ -15,8 +15,7 @@ class ProjectsController < ApplicationController
     @tasks = @project.tasks        
   end
 
-  def create
-    @user= current_user
+  def create    
     @project = current_user.projects.build(project_params)
     if @project.save
       @projects = current_user.projects

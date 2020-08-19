@@ -2,6 +2,9 @@
   <h1>        
     <strong>Task name:</strong><%= @task.name %>
   </h1>
+
+    <%= render partial: 'shared/task_form'%>
+  
   <p>
     <strong>Project id:</strong>
       <%= @project.id %>

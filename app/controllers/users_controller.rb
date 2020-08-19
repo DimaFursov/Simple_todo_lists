@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @projects = @user.projects
-    @project = Project.find(params[:id]) # @project должна предналежать Active Record::Relation
+    @project = Project.find(params[:id]) 
     @task = @project.tasks
     @tasks = @project.tasks
   end

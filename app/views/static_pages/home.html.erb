@@ -7,17 +7,21 @@
   </head>
   <body>
     <% if logged_in? %>
-    
       <p>  <%= render 'shared/user_info' %>  </p>
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
       <h3> From ruby garage </h3>    
+
       <section class="stats">
         <%= render 'shared/stats' %>
       </section>
+
       <%= render 'shared/feedprojects' %>
+
       <button class="btn btn-primary" type="button" id="formButton">+ add_TODO_List</button>
+
       <%= render 'shared/project_form' %>
+      
     <% else %>
       <ul class="nav">
         <li><p> Simple todo list </p></li>

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   
   resources :users   
-  resources :projects,            only: [:index, :create, :edit, :update, :show, :destroy]
-  resources :tasks,               only: [:index, :create, :edit, :update, :show, :destroy]
+  #resources :projects,            only: [:index, :create, :edit, :update, :show, :destroy]
+  # ресурс внутри ресурса
+  resources :projects do
+    resources :tasks
+  end  
+  #resources :tasks,               only: [:index, :create, :edit, :update, :show, :destroy]
 end

@@ -1,16 +1,25 @@
-<ul id="project-<%= project.id %>">
+<ul class="project_form" id="project-<%= project.id %>">
+  
   <span class="form_delete_project" id="form_delete_project_<%=project.id%>">
     <div class="delete_project" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
   </span>
   <span class="project_input" id="project_input_<%=project.id%>">
-    <input class="project_edit" class="form-control" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
-    <div class="update_project" data-id="<%=project.id%>">UPDATE</div>               
+    <input class="project_edit" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
+    <div class="update_project btn-success" data-id="<%=project.id%>">UPDATE</div>               
   </span>
   <span class="form_project_name" id="form_project_name_<%=project.id%>">
     <div class="project_name" id="project_name_<%=project.id%>"><%= project.name %></div>        
     <div class="edit_project" data-id="<%=project.id%>">EDIT</div>
   </span>
   <div class="tasks">
+    <div class="new_task_form">
+      
+      <form>
+      <input class="new_task_field" id="project_task_<%=project.id%>" placeholder="Start typing here to create a task..."></input>
+      <div class="new_task btn btn-success" data-id="<%=project.id%>">Add Task</div>      
+      </form>
+      
+    </div>  
   <% project.tasks.each do |task| %>
     <%= render task %>
   <% end %>
