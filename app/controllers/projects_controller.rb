@@ -20,7 +20,6 @@ class ProjectsController < ApplicationController
     if @project.save
       @projects = current_user.projects
       @project_count = current_user.projects.count
-      flash[:success] = "---project created!---"
       respond_to do |format|
       format.html { redirect_to root_url }
       format.js
@@ -45,11 +44,9 @@ class ProjectsController < ApplicationController
   end  
         
   def destroy
-    @project_id_js = @project.id
+    #@project_id_js = @project.id
     @project.destroy
     flash[:success] = "Project deleted"
-    #redirect_to root_url
-    #redirect_to request.referrer || root_url
     render plain: "delete"
   end
 

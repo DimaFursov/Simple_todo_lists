@@ -8,12 +8,14 @@ body {
   padding-top: 60px;
   padding-bottom: 60px;
   text-align: center;
+  /*  ---projects---  */
 
   .projectsN{
       margin-right: 10px;    
       padding-bottom: 10px;
       margin-bottom: 10px;/* 100px*/
     /*auto !important;*/  /* margin-bottom: 10px; padding-bottom: 10px;  list-style: none;   padding: 10px 0;  margin-left: 60px;  margin-right: 10px;  */
+
 
     ol{
       margin-left: 10px;
@@ -22,9 +24,9 @@ body {
 
     ul{
       padding-left: 0px;/* 40px */
-      
-      padding-bottom: 111px;
-      margin-bottom: 20px;      
+      background-color: #41a7ff;  
+      padding-bottom: auto;
+      margin-bottom: 20px;
     }
     .task_form{
     
@@ -37,7 +39,7 @@ body {
     }
 
     .project_form{
-      background-color: #41a7ff;
+      
     }
 
     .project_edit{
@@ -70,12 +72,14 @@ body {
       float:left;/*contents;/* inline;*/      
     }
     /*  --tasks--  */
-    .tasks{
-      padding-top: 40px;
-      
-      .new_task_form{
-        background-color: #ffc6c6;
+    .new_task_form{
+        padding-top: 40px;
+        /*background-color: #ffc6c6;*/
       }
+    .tasks{
+      padding-top: 0px;
+      
+
       
       ol{
         margin-left: 10px;

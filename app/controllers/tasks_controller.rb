@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-before_action :correct_project,   only: [ :destroy, :edit, :update]
+before_action :correct_project,   only: [ :edit, :update]#destroy
 
   def index
     @tasks = Task.all
@@ -17,22 +17,31 @@ before_action :correct_project,   only: [ :destroy, :edit, :update]
     project = current_user.projects.find(params[:project_id])
     @task = project.tasks.build(task_params)
     if @task.save
-      flash[:success] = "task created!"
-      respond_to do |format|
-      format.html { redirect_to root_url }
-      @task = Task.new
-      end 
-      #render 'tasks/task'      
-      @task = Task.new      
+      #render json: 'shared/taskslist', project_id: @task.project_id
+      #render 'shared/taskslist', project: project
+
+      render partial: 'shared/taskslist', project: project #undefined local variable or method `project'
     else
       render plain: "ERROR create"
     end
   end
   
   def destroy
-    @task.destroy
-    flash[:success] = "task deleted"    
-    redirect_to request.referrer || root_url
+    #@task.destroy
+    #@project = current_user.projects.find(params[:project_id])
+    #task[:task_id] = task.id
+    #task.delete(:task_id)
+    binding.pry
+    @task.destroy        
+    render plain: "delete"
+  end
+
+  def update 
+    if @task.update(task_params)#update_attributes  
+      render json: @task 
+    else
+      render json: @task.errors, status: :unprocessable_entity
+    end  
   end
 
   private
@@ -47,6 +56,18 @@ before_action :correct_project,   only: [ :destroy, :edit, :update]
     redirect_to root_url if @task.nil?
   end
 end
+=begin
+    #task.all.name.reorder('status')
+    #task = Task.where(project_id: '1').count
+
+    render json: 'shared/taskslist', project_id: task.project_id                  
+=end
+
+#render json: 'tasks/task'     # только одну таску
+      #flash[:success] = "task created!"
+      #respond_to do |format|
+      #format.html { redirect_to root_url }
+      #@task = Task.new
 #Task.create    
     # берем из объекта хеша :project_id
                                                 # хеше ключ :project_id :task ищет ассоциативный масив json ключ текст 

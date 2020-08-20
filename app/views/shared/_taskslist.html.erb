@@ -1,0 +1,7 @@
+<div class="tasks_list" id="project_tasks_list-<%= project.id %>" data-id="<%= project.id %>">
+  <div class="tasks">      
+    <% project.tasks.each do |task| %>
+      <%= render task %>
+    <% end %>
+  </div>
+</div>

@@ -38,34 +38,77 @@ $(document).ready(function() {
   });
   $(document).on('click', '.update_project', function() {
     var dataset_id = this.dataset.id;
-    var new_project_name = $("#project_edit_"+dataset_id).val()/*id класс класс в стили*/
+    var new_project_name = $("#project_edit_"+dataset_id).val()
     $.ajax({
       url: '/projects/' + dataset_id,
       type: 'PATCH',
       data: {project: {name: new_project_name}},
       success: function(update_data) {
         $("#project_input_" + dataset_id).toggle();
-        $("#project_name_" + dataset_id).text(update_data.name);/* style="display: block;"*/        
-        $("#form_project_name_" + dataset_id).toggle();/**/ 
+        $("#project_name_" + dataset_id).text(update_data.name);
+        $("#form_project_name_" + dataset_id).toggle(); 
+      }        
+    });
+  });
+  /*TASK*/
+  $(document).on('click', '.edit_task', function() {
+    var dataset_id =this.dataset.id
+    $("#task_input_" + dataset_id).toggle();
+    $("#form_task_name_" + dataset_id).toggle();    
+  });
+  $(document).on('click', '.update_task', function() {
+    var dataset_id = this.dataset.id;
+    var new_task_name = $("#project_task_"+dataset_id).val();
+    var project_id = $('.tasks_list').dataset.id()
+    $.ajax({
+      url: '/projects/' + project_id +'/tasks/'+task_id,
+      type: 'PATCH',
+      data: {task: {name: new_task_name}},
+      success: function(update_data) {
+        $("#task_input_" + dataset_id).toggle();
+        $("#task_name_" + dataset_id).text(update_data.name);
+        $("#form_task_name_" + dataset_id).toggle();    
       }        
     });
   });
   $(document).on('click', '.new_task', function() {    
     var dataset_id = this.dataset.id;/*project.id*/
-    var new_task_name = $("#project_task_"+dataset_id).val();/*update_data.name*/
+    var new_task_name = $("#project_task_"+dataset_id).val()
     $.ajax({
       url: '/projects/' + dataset_id +'/tasks',
       type: 'POST',
       data: {task: {name: new_task_name}},
-      success: function(new_data_name) {
-        alert("success TASK create application.js rafresh homepage");
-        
-        /*обновить форму отправки по класу val окей*/
+      success: function(new_data_name) {        
+        $("#project_tasks_list-"+dataset_id).html(new_data_name);
       }        
+    });
+  });
+  $(document).on('click', '.delete_task', function() {    
+    var task_id = this.dataset.id;
+    var project_id = $('.tasks_list').dataset.id()/*dataset.id()*/
+    $.ajax({
+      url: '/projects/' + project_id +'/tasks/'+task_id,
+      type: 'DELETE',
+      success: function(result) {
+        alert("success delete application.js"+"#task-"+ task_id); 
+        $("#task-"+ task_id).remove("#task-"+ task_id);        
+      }      
     });
   });  
 });
-/*      var new_task = '<span class="form_task_name">' + '<div>' + new_data_name + '<div>' + '</span>';
+/*$(document).on('click', "#delete_task_button_"+this.dataset.id, function() {    
+    var task_id = this.dataset.id;
+    var project_id = $("#project_tasks_list-").dataset.id
+    $.ajax({
+      url: '/projects/' + project_id +'/tasks/'+task_id,
+      type: 'DELETE',
+      success: function(result) {
+        alert("success delete application.js"+"#task-"+ task_id); 
+        $("#task-"+ task_id).remove("#task-"+ task_id);        
+      }      
+    });
+  });  
+     var new_task = '<span class="form_task_name">' + '<div>' + new_data_name + '<div>' + '</span>';
         $("#task-"+ dataset_id).append(new_task);
 
 var new_task = '<span class="form_task_name">' + '<div>' + new_task_name + '<div>' + '</span>' *//*не окончен*/
