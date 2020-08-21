@@ -52,46 +52,48 @@ $(document).ready(function() {
   });
   /*TASK*/
   $(document).on('click', '.edit_task', function() {
-    var dataset_id =this.dataset.id
-    $("#task_input_" + dataset_id).toggle();
-    $("#form_task_name_" + dataset_id).toggle();    
+    var task_id =this.dataset.id
+    $("#task_input_" + task_id).toggle();
+    $("#form_task_name_" + task_id).toggle();/*first*/
   });
   $(document).on('click', '.update_task', function() {
-    var dataset_id = this.dataset.id;
-    var new_task_name = $("#project_task_"+dataset_id).val();
-    var project_id = $('.tasks_list').dataset.id()
+    var task_id = this.dataset.id;
+    var project_id = this.dataset.projectid;
+    var new_task_name = $("#task_edit_"+task_id).val();
+    /*var project_id = $('.tasks_list').dataset.id()*/
     $.ajax({
-      url: '/projects/' + project_id +'/tasks/'+task_id,
+      url: '/projects/'+project_id+'/tasks/'+task_id,
       type: 'PATCH',
       data: {task: {name: new_task_name}},
       success: function(update_data) {
-        $("#task_input_" + dataset_id).toggle();
-        $("#task_name_" + dataset_id).text(update_data.name);
-        $("#form_task_name_" + dataset_id).toggle();    
+        $("#task_input_" + update_data.id).toggle();/*task_id*/
+        $("#task_name_" + update_data.id).text(update_data.name);
+        $("#form_task_name_" + update_data.id).toggle();    
       }        
     });
   });
   $(document).on('click', '.new_task', function() {    
-    var dataset_id = this.dataset.id;/*project.id*/
-    var new_task_name = $("#project_task_"+dataset_id).val()
+    var project_id = this.dataset.id;/*project.id*/
+    var new_task_name = $("#project_task_"+project_id).val()
     $.ajax({
-      url: '/projects/' + dataset_id +'/tasks',
+      url: '/projects/' + project_id +'/tasks',
       type: 'POST',
       data: {task: {name: new_task_name}},
       success: function(new_data_name) {        
-        $("#project_tasks_list-"+dataset_id).html(new_data_name);
+        $("#project_tasks-"+project_id).append(new_data_name);/*new_task_name.project_id*/
       }        
     });
   });
   $(document).on('click', '.delete_task', function() {    
     var task_id = this.dataset.id;
-    var project_id = $('.tasks_list').dataset.id()/*dataset.id()*/
+    var project_id = this.dataset.projectid;
+    /*var project_id = $('.tasks_list').dataset.id()*/
     $.ajax({
-      url: '/projects/' + project_id +'/tasks/'+task_id,
+      url: '/projects/'+project_id+'/tasks/'+task_id,/*/projects/:project_id/tasks/:id*/
       type: 'DELETE',
       success: function(result) {
-        alert("success delete application.js"+"#task-"+ task_id); 
-        $("#task-"+ task_id).remove("#task-"+ task_id);        
+        /*alert("success delete application.js/projects/"+project_id+"/tasks/"+ task_id); */
+        $("#task_id_"+ task_id).remove("#task_id_"+ task_id);        
       }      
     });
   });  

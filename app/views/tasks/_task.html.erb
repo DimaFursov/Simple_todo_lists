@@ -1,13 +1,15 @@
-<ul class="task_list" id="task-<%= task.id %>">
+<div class="task" id="task_id_<%=task.id%>" data-project-id="<%=task.project_id%>">
+
   <span class="form_delete_task" id="form_delete_task_<%=task.id%>">
-    <div class="delete_task" id="delete_task_button_<%=task.id%>" data-id="<%=task.id%>">DELETE</div>
+    <div class="delete_task" id="delete_task_button_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">DELETE</div>
   </span>
   <span class="task_input" id="task_input_<%=task.id%>">
     <input class="task_edit" id="task_edit_<%=task.id%>" value="<%= task.name %>"></input>
-    <div class="update_task" data-id="<%=task.id%>">UPDATE</div>               
+    <div class="update_task" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div>               
   </span>
   <span class="form_task_name" id="form_task_name_<%=task.id%>">
     <div class="task_name" id="task_name_<%=task.id%>"><%= task.name %></div>        
-    <div class="edit_task" data-id="<%=task.id%>">EDIT</div>
+    <div class="edit_task" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">EDIT</div>
   </span>
-</ul>
+
+</div>

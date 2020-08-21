@@ -1,43 +1,23 @@
 class TasksController < ApplicationController
-before_action :correct_project,   only: [ :edit, :update]#destroy
+before_action :find_project,   only: [ :create, :update, :destroy]#destroy
+before_action :find_task,      only: [ :update, :destroy]
 
-  def index
-    @tasks = Task.all
-  end
-
-  def show
-    @project = Project.find(params[:id])
-    @task = Task.find(params[:id])
-    
-  end
-
-  def create
-    #binding.pry
-    #debugger
-    project = current_user.projects.find(params[:project_id])
-    @task = project.tasks.build(task_params)
+  def create        
+    @task = @project.tasks.build(task_params)
     if @task.save
-      #render json: 'shared/taskslist', project_id: @task.project_id
-      #render 'shared/taskslist', project: project
-
-      render partial: 'shared/taskslist', project: project #undefined local variable or method `project'
+      render partial: @task      
     else
       render plain: "ERROR create"
     end
   end
   
   def destroy
-    #@task.destroy
-    #@project = current_user.projects.find(params[:project_id])
-    #task[:task_id] = task.id
-    #task.delete(:task_id)
-    binding.pry
-    @task.destroy        
+    @task.destroy
     render plain: "delete"
   end
 
-  def update 
-    if @task.update(task_params)#update_attributes  
+  def update
+    if @task.update(task_params)
       render json: @task 
     else
       render json: @task.errors, status: :unprocessable_entity
@@ -51,12 +31,27 @@ before_action :correct_project,   only: [ :edit, :update]#destroy
     params.require(:task).permit(:name) # status: true, priority: 1, deadline: nil разрешение на редактирование
                    #json ключ текст 
   end
-  def correct_project
-    @task = correct_project.tasks.find_by(id: params[:id])
-    redirect_to root_url if @task.nil?
+
+  def find_project
+    @project = current_user.projects.find(params[:project_id])
   end
+
+  def find_task
+    @task = @project.tasks.find(params[:id])
+  end  
 end
 =begin
+    #render json: @task
+    respond_to do |format|
+      format.json {render partial: "tasks/task"}#render task #"tasks/task"
+      end
+    respond_to do |format|
+      format.json {render partial: 'shared/taskslist', project: project}#Missing partial shared/_taskslist with
+      end
+
+    #render json: 'shared/taskslist', project_id: @task.project_id
+      #render 'shared/taskslist', project: project
+
     #task.all.name.reorder('status')
     #task = Task.where(project_id: '1').count
 
