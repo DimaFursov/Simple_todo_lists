@@ -5,7 +5,7 @@ before_action :find_task,      only: [ :update, :destroy]
   def create        
     @task = @project.tasks.build(task_params)
     if @task.save
-      render partial: @task      
+      render partial: @task #@task = Task.new      
     else
       render plain: "ERROR create"
     end

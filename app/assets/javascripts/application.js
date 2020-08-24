@@ -19,7 +19,13 @@ $(document).ready(function() {
   $("#formButton").click(function() {
       $(".new_project").toggle();    
     });
+  $('.task').hover(function(){
+  $(this).css("background-color", "yellow");
+  }, function(){
+  $(this).css("background-color", "white");
+  });
   $(".new_project").show("slow");/*remove afterfinish work*/
+  
   $(document).on('click', '.delete_project', function() {
     var id = this.dataset.id
     $.ajax({
@@ -53,8 +59,9 @@ $(document).ready(function() {
   /*TASK*/
   $(document).on('click', '.edit_task', function() {
     var task_id =this.dataset.id
-    $("#task_input_" + task_id).toggle();
     $("#form_task_name_" + task_id).toggle();/*first*/
+    $("#task_input_" + task_id).toggle();
+    /*$("#form_task_name_" + task_id).toggle();*//*first*/
   });
   $(document).on('click', '.update_task', function() {
     var task_id = this.dataset.id;
@@ -66,8 +73,8 @@ $(document).ready(function() {
       type: 'PATCH',
       data: {task: {name: new_task_name}},
       success: function(update_data) {
-        $("#task_input_" + update_data.id).toggle();/*task_id*/
         $("#task_name_" + update_data.id).text(update_data.name);
+        $("#task_input_" + update_data.id).toggle();        
         $("#form_task_name_" + update_data.id).toggle();    
       }        
     });
@@ -80,7 +87,8 @@ $(document).ready(function() {
       type: 'POST',
       data: {task: {name: new_task_name}},
       success: function(new_data_name) {        
-        $("#project_tasks-"+project_id).append(new_data_name);/*new_task_name.project_id*/
+        $("#project_tasks-"+project_id).append(new_data_name);
+        $("#project_task_"+project_id).val('');
       }        
     });
   });

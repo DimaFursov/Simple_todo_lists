@@ -1,30 +1,28 @@
 <ul class="project_form" id="project-<%= project.id %>">  
-  <span class="form_delete_project" id="form_delete_project_<%=project.id%>">
-    <div class="delete_project" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
-  </span>
-  <span class="project_input" id="project_input_<%=project.id%>">
-    <input class="project_edit" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
-    <div class="update_project btn-success" data-id="<%=project.id%>">UPDATE</div>               
-  </span>
-  <span class="form_project_name" id="form_project_name_<%=project.id%>">
-    <div class="project_name" id="project_name_<%=project.id%>"><%= project.name %></div>        
-    <div class="edit_project" data-id="<%=project.id%>">EDIT</div>
-  </span>    
+  <form class="project form-inline">
+    <span class="form_delete_project " id="form_delete_project_<%=project.id%>">
+      <div class="delete_project btn btn-default btn-sm" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
+    </span>
+    <span class="project_input" id="project_input_<%=project.id%>">
+      <input class="project_edit input-sm" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
+      <div class="update_project btn btn-success btn-sm" data-id="<%=project.id%>">UPDATE</div>               
+    </span>
+    <span class="form_project_name" id="form_project_name_<%=project.id%>">
+      <div class="project_name input-sm" id="project_name_<%=project.id%>"><%= project.name %></div>        
+      <div class="edit_project btn btn-default btn-sm" data-id="<%=project.id%>">EDIT</div>
+    </span>    
+  </form>
 
-  <span>  
-  <div class="new_task_form">
-    
-    <form>
-    <input class="new_task_field" id="project_task_<%=project.id%>" placeholder="Start typing here to create a task..."></input>
-    <div class="new_task btn btn-success" data-id="<%=project.id%>">Add Task</div>      
-    </form>
-    
-  </div>  
-  </span>
-  <span>
+  <form class="new_task_form">
+    <span>      
+      <div><input class="new_task_field input-sm" id="project_task_<%=project.id%>" placeholder="Start typing here to create a task..."></input></div>
+      <div class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
+    </span>
+  </form>
 
+  <form>
     <%= render 'shared/taskslist', project: project %>
     
     
-  </span>    
+  </form>    
 </ul>
