@@ -1,12 +1,8 @@
-<% @tasks.each do |task| %>
-  <ol>
-    <li>
-      <strong>Task id:</strong>
-      <%= task.id %>
-      <strong>Task name:</strong>
-      <%= task.name %>
-      <strong>Task project_id:</strong>
-      <%= task.project_id %>
-    </li>  
-  </ol>  
-<% end %>
+<%= link_to "home", root_path %>
+<div class="list-group" id="tasksid" data-url="<%= sort_tasks_path %>">
+  <% @tasks.each do |task| %>
+    <%= link_to task.name, task, class: "list-group-item" %>
+  <% end %>
+</div>
+<!-- list-groupe. need to have class id. on the tasks list rap each one of task in a div give that div an ids then jquery will no this is a group of items 
+and every group of items inside of here and it's gona be sortable   -->

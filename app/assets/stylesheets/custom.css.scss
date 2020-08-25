@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$brand-success: linear-gradient(to bottom, #c7ffc7, #4cae4c);
+
 
 
 body {
@@ -93,80 +95,76 @@ body {
         /*padding-top: 20px;*/
         background-color: #ccc;
         padding-bottom: auto;
-      .task{
-        cursor: pointer;
-      }
+
       input, textarea, select, .uneditable-input{
       /*border: 1px solid #bbb;*/
       width: 90%;
       /*margin-bottom: 0px;*/
       }  
-
       .new_task_field{
-        float:left;
-        
+        float:left;        
       }
-
       .new_task{
         display: block;
-        cursor: pointer;
-
+        cursor: pointer;        
+      }      
+      .btn-success{
+        background: linear-gradient(to bottom, #c7ffc7, #4cae4c);/*$brand-success;*/
       }
-
-      }
+    }
     .tasks{
       padding-top: 0px;
-      
+      background: white;
 
-      
-      ol{
-        margin-left: 10px;
-        padding-left: 0px;
+      /* --On hover show hide buttons-- */
+      /*form_delete_task*/
+      tr:hover {
+        background-color: yellow;
+        .actions {          
+          display: block;
+        }
       }
-      .task{
-        padding-left: 0px;/* 40px */
-        background-color: #ccc;
-        padding-bottom: 111px;
-        margin-bottom: 0px;      
+      .actions {
+        display: none;
       }
-
-      span{    
-        line-height: 1;
-        width:100%;
-        font-weight: normal;
+      /*  ---buttons---  */
+      .task_priority_drag_and_drop{      
+      }      
+      .edit_task{        
       }
-
+      .delete_task{        
+      }
+      input{
+        width: auto;
+      }
+      .task_input{
+        display: none;
+      }        
+      .task_status{
+      }
+      .task_name{
+      }
+      /*
       .task_edit{
-        width: 85%;
+      width: 85%;
       }
-
       .edit_task{
         float: right;
         margin-right: 10px;
         cursor: pointer;
       }
-
       .update_task{
         float: right;
         margin-right: 10px;
         cursor: pointer;
       }
-
       .delete_task{
         float: right;
         margin-right: 10px;
         cursor: pointer;
       }
-
-      .task_input{
-        display: none;
-      }
-
-      .task_name{
-        float:left;    
-      }
+      */
     }
-
   }
 
   #formButton {

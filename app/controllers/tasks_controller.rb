@@ -1,6 +1,19 @@
 class TasksController < ApplicationController
-before_action :find_project,   only: [ :create, :update, :destroy]#destroy
+before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
+
+  def index
+    @tasks = Task.order(:position)
+  end
+  #/*task[]=51&task[]=50&task[]=58*/
+  def sort
+    #binding.pry #PATCH "/tasks/sort" #/* {"task"=>["58", "50", "51"], "controller"=>"tasks", "action"=>"sort"} */      
+    params[:task].each_with_index do |id, index| #id from each one item in the index
+      Task.where(id: id).update_all(position: index + 1)
+    end
+    #@tasks = Task.order(:position)
+    head :ok
+  end  
 
   def create        
     @task = @project.tasks.build(task_params)
@@ -40,37 +53,3 @@ before_action :find_task,      only: [ :update, :destroy]
     @task = @project.tasks.find(params[:id])
   end  
 end
-=begin
-    #render json: @task
-    respond_to do |format|
-      format.json {render partial: "tasks/task"}#render task #"tasks/task"
-      end
-    respond_to do |format|
-      format.json {render partial: 'shared/taskslist', project: project}#Missing partial shared/_taskslist with
-      end
-
-    #render json: 'shared/taskslist', project_id: @task.project_id
-      #render 'shared/taskslist', project: project
-
-    #task.all.name.reorder('status')
-    #task = Task.where(project_id: '1').count
-
-    render json: 'shared/taskslist', project_id: task.project_id                  
-=end
-
-#render json: 'tasks/task'     # только одну таску
-      #flash[:success] = "task created!"
-      #respond_to do |format|
-      #format.html { redirect_to root_url }
-      #@task = Task.new
-#Task.create    
-    # берем из объекта хеша :project_id
-                                                # хеше ключ :project_id :task ищет ассоциативный масив json ключ текст 
-    #undefined local variable or method `project'                                                
-    #task = project.tasks.create(task_params)
-    #@project = Project.find(params[:id])    
-    #@task = Task.build(task_params)
-    #@task = Task.create(task_params)
-    #/*{"task"=>{"name"=>"dsadsadsa"}, "controller"=>"tasks", "action"=>"create", "project_id"=>"3"}*/
-    #binding.pry
-    #@project = current_user.projects.find(params[:id])

@@ -1,7 +1,10 @@
-<div class="tasks_list" id="project_tasks_list-<%= project.id %>" data-id="<%= project.id %>">
-  <div class="tasks" id="project_tasks-<%= project.id %>">      
+<table class="tasks table" id="project_tasks-<%= project.id %>" data-id="<%= project.id %>">
+  <tbody class="tasks_tbody list-group" data-url="<%= sort_tasks_path %>">
     <% project.tasks.each do |task| %>
       <%= render task %>
     <% end %>
-  </div>
-</div>
+  </tbody>
+</table>  
+
+<!-- need to have class id. on the tasks list rap each one of task in a div give that div an ids then jquery will no this is a group of items 
+and every group of items inside of here and it's gona be sortable   -->

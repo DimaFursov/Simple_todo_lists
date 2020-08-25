@@ -1,7 +1,7 @@
 <ul class="project_form" id="project-<%= project.id %>">  
   <form class="project form-inline">
-    <span class="form_delete_project " id="form_delete_project_<%=project.id%>">
-      <div class="delete_project btn btn-default btn-sm" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
+    <span class="form_delete_project" id="form_delete_project_<%=project.id%>">
+      <div class="delete_project btn btn-default btn-sm actions" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
     </span>
     <span class="project_input" id="project_input_<%=project.id%>">
       <input class="project_edit input-sm" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
@@ -9,7 +9,7 @@
     </span>
     <span class="form_project_name" id="form_project_name_<%=project.id%>">
       <div class="project_name input-sm" id="project_name_<%=project.id%>"><%= project.name %></div>        
-      <div class="edit_project btn btn-default btn-sm" data-id="<%=project.id%>">EDIT</div>
+      <div class="edit_project btn btn-default btn-sm actions" data-id="<%=project.id%>">EDIT</div>
     </span>    
   </form>
 
@@ -19,10 +19,6 @@
       <div class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
     </span>
   </form>
-
-  <form>
+       
     <%= render 'shared/taskslist', project: project %>
-    
-    
-  </form>    
 </ul>
