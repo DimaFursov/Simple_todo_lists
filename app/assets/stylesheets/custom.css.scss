@@ -119,6 +119,7 @@ body {
       /* --On hover show hide buttons-- */
       /*form_delete_task*/
       tr:hover {
+        cursor: default;
         background-color: yellow;
         .actions {          
           display: block;

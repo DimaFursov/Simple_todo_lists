@@ -18,30 +18,30 @@
 //= require_tree .
 /**/
 $(document).ready(function() {
-  
+  /*  ----------------------------- drag and drop----------------------------*/  
   $('.tasks_tbody').sortable({
+    
     update: function(e, ui){
-      /*Rails.*/
       $.ajax({
         url: $(this).data("url"),
         type:'PATCH',
         data:$(this).sortable('serialize'),
-      });
-    }
-  });
-
-  
+      }
+      );
+    },
+    handle: ".task_priority_drag_and_drop"    
+  });  
+  /*----------------------------------------------------------------------------*/
   $("#formButton").click(function() {
       $(".new_project").toggle();    
     });  
-  $(".new_project").show("slow");/*remove afterfinish work*/
+  $(".new_project").show("slow");//remove afterfinish work
   $(document).on('click', '.delete_project', function() {
     var id = this.dataset.id
     $.ajax({
       url: '/projects/' + id,
       type: 'DELETE',
-      success: function(result) {
-        alert("success delete application.js"+"#project-"+ id); 
+      success: function(result) {        
         $("#project-"+ id).remove("#project-"+ id);        
       }      
     });
@@ -65,7 +65,7 @@ $(document).ready(function() {
       }        
     });
   });
-  /*TASK*/
+  /* ----------------TASK------------------ */
   $(document).on('click', '.edit_task', function() {
     var task_id =this.dataset.id
     $("#task_name_" + task_id).toggle();
@@ -87,7 +87,7 @@ $(document).ready(function() {
     });
   });
   $(document).on('click', '.new_task', function() {    
-    var project_id = this.dataset.id;/*project.id*/
+    var project_id = this.dataset.id;
     var new_task_name = $("#project_task_"+project_id).val()
     $.ajax({
       url: '/projects/' + project_id +'/tasks',
@@ -106,11 +106,8 @@ $(document).ready(function() {
       url: '/projects/'+project_id+'/tasks/'+task_id,
       type: 'DELETE',
       success: function(result) {        
-        $("#task_"+ task_id).remove("#task_"+ task_id);/*task_id_*/
+        $("#task_"+ task_id).remove("#task_"+ task_id);
       }      
     });
   });  
 });
-/* url: /tasks/sort */ /*/projects/:project_id/tasks/:id*/
-      /*console.log($(this).sortable('serialize'));*/
-      /*task[]=51&task[]=50&task[]=58*/
