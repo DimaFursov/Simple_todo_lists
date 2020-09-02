@@ -8,9 +8,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
     
-  resources :users   
-  #resources :projects,            only: [:index, :create, :edit, :update, :show, :destroy]
-  # ресурс внутри ресурса
+  resources :users     
   resources :projects do
     resources :tasks
   end  
@@ -18,6 +16,5 @@ Rails.application.routes.draw do
     collection do
       patch :sort
     end
-  end
-  #resources :tasks,            only: [:index, :create, :edit, :update, :show, :destroy]
+  end  
 end

@@ -1,6 +1,7 @@
 <%= form_for(@task) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :name, placeholder: "Start typing here to create a task..." %>
+    <%= f.text_area :name, placeholder: "Start typing here to create a task...2" %>
   </div>
   <%= f.submit "Add Task", class: "btn btn-success" %>
 <% end %>

@@ -13,13 +13,16 @@ body {
   @keyframes{
 
   }
-  /*  ---projects---  */
-
+  /*  ------------------------------------------ -projects- ----------------------------------------------------  */
+  .project-create-form{
+    display: none;
+    margin: 0px 200px;    
+  }
   .projectsN{
       margin: 0px 200px;    
       padding-bottom: 0px;
       margin-bottom: 0px;/* 100px*/
-    /*auto !important;*/  /* margin-bottom: 10px; padding-bottom: 10px;  list-style: none;   padding: 10px 0;  margin-left: 60px;  margin-right: 10px;  */
+    /*auto !important;*/  
 
     .project{
       /*padding-bottom: auto;*/
@@ -46,10 +49,15 @@ body {
       line-height: 1;
       width:100%;
       font-weight: normal;
+    }    
+    .project:hover{
+        cursor: default;        
+        .actions{          
+          display: block;
+        }
     }
-
-    .project{
-
+    .actions {
+      display: none;
     }
 
     .project_form{
@@ -89,7 +97,7 @@ body {
       float:left;
       color: white;
     }
-    /*  --tasks--  */
+    /*  ------------------------------------------ -tasks- --------------------------------------------  */
     .new_task_form{
 
         /*padding-top: 20px;*/

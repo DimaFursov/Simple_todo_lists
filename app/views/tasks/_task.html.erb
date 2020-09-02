@@ -1,6 +1,6 @@
-<tr class="task list-group-item" id="<%= dom_id(task) %>" data-project-id="<%=task.project_id%>" ><!--id= task_id_-->
+<tr class="task list-group-item" id="<%= dom_id(task) %>" data-projectid="<%=task.project_id%>" ><!--id= task_id_-->
   <td>
-    <input type="checkbox" data-id="<%=task.id%>" data-project-id="<%=task.project_id%> name="option1" value="a1">
+    <input type="checkbox" class="status" id="task_status_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>" <% if task.status%><%="checked"%><%end%>>
   </td>
   <td>
     <div class="form_task_name" id="form_task_name_<%=task.id%>">

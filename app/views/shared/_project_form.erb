@@ -1,9 +1,5 @@
-<%= form_for(@project, remote: true) do |f| %>
-  
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_area :name, placeholder: "+ add Project", class: "form-control" %>
-  </div>
-  <%= f.submit({:class =>'btn btn-success'}, "add Project")  %>
-
-<% end %>
+<form class="project-create-form" >
+  <div><input class="project-input input-sm" id="project-input-id-<%=@project.id%>" data-id="<%=@project.id%>" 
+              placeholder="+ add Project"></input></div>
+  <div class="project-create-btn btn btn-success btn-sm" data-id="<%=@project.id%>">Create Project</div>
+</form>

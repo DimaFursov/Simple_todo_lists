@@ -10,24 +10,20 @@ class ProjectsController < ApplicationController
     @project = Project.new    
   end
   def show 
-    @project = Project.find(params[:id]) # @project должна предналежать Active Record::Relation
+    @project = Project.find(params[:id])
     @task = Task.find(params[:project_id])
     @tasks = @project.tasks        
   end
 
-  def create    
+  def create        
+    #binding.pry
     @project = current_user.projects.build(project_params)
-    if @project.save
+    if @project.save      
       @projects = current_user.projects
       @project_count = current_user.projects.count
-      respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js
-      @project = Project.new
-      end
-    else
-      @feed_itemsprojects = []
-      render 'static_pages/home'
+      @project = Project.new 
+    else      
+      render json: @project.errors.messages, status: :unprocessable_entity
     end
   end
 
@@ -36,34 +32,30 @@ class ProjectsController < ApplicationController
   end
 
   def update 
-    if @project.update(project_params)#update_attributes  
+    if @project.update(project_params)
       render json: @project 
     else
-      render json: @project.errors, status: :unprocessable_entity
+      render json: @project.errors.messages, status: :unprocessable_entity
     end  
   end  
         
-  def destroy
-    #@project_id_js = @project.id
-    @project.destroy
-    flash[:success] = "Project deleted"
+  def destroy    
+    @project.destroy    
     render plain: "delete"
   end
 
-
   private
 
-  def project_params
-    #binding.pry #ошибки в котроллере
-    params.require(:project).permit(:name) #разрешение на редактирование
-                   #json ключ текст 
+  def project_params   
+    params.require(:project).permit(:name)
   end
 
   def set_project
     @project = Project.find(params[:id])
   end
+
   def correct_user
     @project = current_user.projects.find_by(id: params[:id])
     redirect_to root_url if @project.nil?
   end
-end          
+end 

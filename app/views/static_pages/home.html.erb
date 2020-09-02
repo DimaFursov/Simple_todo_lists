@@ -19,14 +19,13 @@
         <%= render 'shared/feedprojects' %>
       </div>
       <button class="btn btn-primary" type="button" id="formButton">+ add_TODO_List</button>
-
-      <%= render 'shared/project_form' %>
-      
-    <% else %>
+      <!--new clear js for error-->
+        <%= render 'shared/project_form' %>
+      <% else %>
       <ul class="nav">
         <li><p> Simple todo list </p></li>
-        <li><%= link_to "Log in", login_path, class: "btn" %></li>
-        <li><%= link_to "Sign up", signup_path, class: "btn" %></li>
+        <li><%= link_to "Log in", login_path, class: "btn btn-default btn-xs" %></li>
+        <li><%= link_to "Sign up", signup_path, class: "btn btn-primary btn-xs" %></li>
       </ul>
     <% end %>  
   </body>

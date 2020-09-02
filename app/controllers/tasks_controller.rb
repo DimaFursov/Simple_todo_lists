@@ -5,22 +5,20 @@ before_action :find_task,      only: [ :update, :destroy]
   def index
     @tasks = Task.order(:position)
   end
-  #/*task[]=51&task[]=50&task[]=58*/
+  
   def sort
-    #binding.pry #PATCH "/tasks/sort" #/* {"task"=>["58", "50", "51"], "controller"=>"tasks", "action"=>"sort"} */      
-    params[:task].each_with_index do |id, index| #id from each one item in the index
-      Task.where(id: id).update_all(position: index + 1)
-    end
-    #@tasks = Task.order(:position)
+    params[:task].each_with_index do |id, index| 
+    Task.where(id: id).update_all(position: index + 1)
+    end    
     head :ok
   end  
 
   def create        
     @task = @project.tasks.build(task_params)
     if @task.save
-      render partial: @task #@task = Task.new      
-    else
-      render plain: "ERROR create"
+      render partial: @task
+    else      
+      render json: @task.errors.messages, status: :unprocessable_entity
     end
   end
   
@@ -28,21 +26,19 @@ before_action :find_task,      only: [ :update, :destroy]
     @task.destroy
     render plain: "delete"
   end
-
-  def update
+  
+  def update  
     if @task.update(task_params)
       render json: @task 
     else
-      render json: @task.errors, status: :unprocessable_entity
+      render json: @task.errors.messages, status: :unprocessable_entity
     end  
   end
 
   private
 
   def task_params
-    #binding.pry #ошибки в котроллере 
-    params.require(:task).permit(:name) # status: true, priority: 1, deadline: nil разрешение на редактирование
-                   #json ключ текст 
+    params.require(:task).permit(:name, :status)    
   end
 
   def find_project
