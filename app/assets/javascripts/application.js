@@ -44,8 +44,8 @@ $(document).ready(function() {
       type: 'POST',
       data: {project: {name: newProjectName}},
     success: function(partialProjectsList) {
-      $('.project-input').val('');
-      //$(".projectsN").append(partialProjectsList);      
+      $('.project-input').val('');      
+      $(".feed_itemsprojects_list").append(partialProjectsList);
       }
     })
     .fail(function(errorProjectResponse) {
@@ -58,30 +58,31 @@ $(document).ready(function() {
     $.ajax({
       url: '/projects/' + id,
       type: 'DELETE',
-      success: function(result) {        
+      success: function(result) {
         $("#project-"+ id).remove("#project-"+ id);        
-      }      
+      }
     });
   });
   
+  /*  ----------------------------- update_project ---------------------------------------------*/  
+
   $(document).on('click', '.edit_project', function() {
-    var dataset_id =this.dataset.id
-    $("#project_input_" + dataset_id).toggle();
-    $("#form_project_name_" + dataset_id).toggle();    
+    var projectId =this.dataset.id
+    $("#project_input_" + projectId).toggle();
+    $("#form_project_name_" + projectId).toggle();    
   });
 
-  /*  ----------------------------- update_project ---------------------------------------------*/  
   $(document).on('click', '.update_project', function() {
-    var dataset_id = this.dataset.id;
-    var new_project_name = $("#project_edit_"+dataset_id).val()
+    var projectId = this.dataset.id;
+    var newProjectName = $("#project_edit_"+projectId).val()
     $.ajax({
-      url: '/projects/' + dataset_id,
+      url: '/projects/' + projectId,
       type: 'PATCH',
-      data: {project: {name: new_project_name}},
-      success: function(update_data) {
-        $("#project_input_" + dataset_id).toggle();
-        $("#project_name_" + dataset_id).text(update_data.name);
-        $("#form_project_name_" + dataset_id).toggle(); 
+      data: {project: {name: newProjectName}},
+      success: function(updateProject) {
+        $("#project_input_" + updateProject.id).toggle();
+        $("#project_name_" + updateProject.id).text(updateProject.name);
+        $("#form_project_name_" + updateProject.id).toggle(); 
       }        
     })
     .fail(function(errorProjectUpdate) { 
@@ -107,24 +108,24 @@ $(document).ready(function() {
     });
   });
 
-  /*  ----------------------------- edit_task ---------------------------------------------*/  
+  /*  ----------------------------- update_task ---------------------------------------------*/  
   $(document).on('click', '.edit_task', function() {
-    var task_id =this.dataset.id
-    $("#task_name_" + task_id).toggle();
-    $("#task_input_" + task_id).toggle();    
+    var taskId =this.dataset.id
+    $("#task_name_" + taskId).toggle();
+    $("#task_input_" + taskId).toggle();    
   });
   $(document).on('click', '.update_task', function() {
-    var task_id = this.dataset.id;
-    var project_id = this.dataset.projectid;
-    var new_task_name = $("#task_edit_"+task_id).val();    
+    var taskId = this.dataset.id;
+    var projectId = this.dataset.projectid;
+    var newTaskName = $("#task_edit_"+taskId).val();    
     $.ajax({
-      url: '/projects/'+project_id+'/tasks/'+task_id,
+      url: '/projects/'+projectId+'/tasks/'+taskId,
       type: 'PATCH',
-      data: {task: {name: new_task_name}},
-      success: function(update_data) {
-        $("#task_name_" + update_data.id).text(update_data.name);
-        $("#task_input_" + update_data.id).toggle();        
-        $("#task_name_" + update_data.id).toggle();    
+      data: {task: {name: newTaskName}},
+      success: function(updateTask) {
+        $("#task_name_" + updateTask.id).text(updateTask.name);
+        $("#task_input_" + updateTask.id).toggle();        
+        $("#task_name_" + updateTask.id).toggle();    
       }        
     })
     .fail(function(errorTaskUpdate) { 

@@ -16,13 +16,7 @@
   <form class="new_task_form" id="project-<%= project.id %>">
     <span>      
       <div><input class="new_task_field has-error input-sm" id="project_task_<%=project.id%>" placeholder="Start typing here to create a task..."></input></div>
-      <div class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
-      <!--<div class="form-group has-error">
-        <label class="control-label" for="inputError">Input with error</label>
-        <input type="text" class="form-control" id="inputError">
-        <span class="help-block">Please correct the error</span>
-      </div>
-      -->
+      <div class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>      
     </span>
   </form>       
     <%= render 'shared/taskslist', project: project %>

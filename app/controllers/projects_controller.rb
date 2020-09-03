@@ -21,7 +21,10 @@ class ProjectsController < ApplicationController
     if @project.save      
       @projects = current_user.projects
       @project_count = current_user.projects.count
-      @project = Project.new 
+      render partial: @project
+      #render partial: "projects/project", project: project #@projects
+      #render partial: 'shared/feedprojects'#, project: project#, locals:{ task:task}
+      #@project = Project.new 
     else      
       render json: @project.errors.messages, status: :unprocessable_entity
     end
