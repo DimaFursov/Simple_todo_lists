@@ -38,19 +38,26 @@ $(document).ready(function() {
   $(".project-create-form").show("slow");//remove afterfinish work
   /*--------------------------------------- create projects -------------------------------------*/
   $(document).on('click', '.project-create-btn', function() {    
-    var newProjectName = $(".project-input").val()    
-    $.ajax({
-      url: '/projects',
-      type: 'POST',
-      data: {project: {name: newProjectName}},
-    success: function(partialProjectsList) {
-      $('.project-input').val('');      
-      $(".feed_itemsprojects_list").append(partialProjectsList);
-      }
-    })
-    .fail(function(errorProjectResponse) {
-      alert(errorProjectResponse.responseJSON.name)      
-    });
+    var newProjectName = $(".project-input-form").val()
+    if (newProjectName == "") {        
+      $(".project-control-label").text("Project name must be filled out")
+    }else if(newProjectName.length>80){ 
+      $(".project-control-label").text("Project name is too long (maximum is 80 characters)")
+    }else { 
+      $.ajax({
+        url: '/projects',
+        type: 'POST',
+        data: {project: {name: newProjectName}},
+      success: function(partialProjectsList) {
+        $(".project-control-label").text("")
+        $('.project-input-form').val('')
+        $(".feed_itemsprojects_list").append(partialProjectsList)
+        }
+      })
+      .fail(function(errorProjectResponse) {
+        alert(errorProjectResponse.responseJSON.name)      
+      })            
+    }      
   });
   /*-------------------------------------- delete_project  -------------------------------------*/
   $(document).on('click', '.delete_project', function() {
@@ -91,21 +98,28 @@ $(document).ready(function() {
   });  
   
   /*  ----------------------------- new_task ---------------------------------------------*/  
-  $(document).on('click', '.new_task', function() {    
+  $(document).on('click', '.new_task', function() {
     var projectId = this.dataset.id;
     var newTaskName = $("#project_task_"+projectId).val()
-    $.ajax({
-      url: '/projects/' + projectId +'/tasks',
-      type: 'POST',
-      data: {task: {name: newTaskName}},
-      success: function(partialTask) {        
-        $("#project_tasks-"+projectId).append(partialTask);
-        $("#project_task_"+projectId).val('');
-      }    
-    })
-    .fail(function(errorTaskResponse) { 
-      alert(errorTaskResponse.responseJSON.name)      
-    });
+    if (newTaskName == "") {        
+      $("#project-id-new-task-error-"+projectId).text("Task name must be filled out")
+    }else if(newTaskName.length>255){ 
+      $("#project-id-new-task-error-"+projectId).text("Task name is too long (maximum is 255 characters)")
+    }else {
+      $.ajax({
+        url: '/projects/' + projectId +'/tasks',
+        type: 'POST',
+        data: {task: {name: newTaskName}},
+        success: function(partialTask) {
+          $("#project-id-new-task-error-"+projectId).text("")
+          $("#project_task_"+projectId).val('')
+          $("#project_tasks-"+projectId).append(partialTask)
+        }    
+      })
+      .fail(function(errorTaskResponse) { 
+        alert(errorTaskResponse.responseJSON.name)      
+      })
+    }
   });
 
   /*  ----------------------------- update_task ---------------------------------------------*/  

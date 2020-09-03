@@ -12,12 +12,18 @@
       <div class="edit_project btn btn-default btn-sm actions" data-id="<%=project.id%>">EDIT</div>
     </span>    
   </form>
+  
+  <form role="form" class="new_task_form form-inline" id="project-<%= project.id %>">
 
-  <form class="new_task_form" id="project-<%= project.id %>">
-    <span>      
-      <div><input class="new_task_field has-error input-sm" id="project_task_<%=project.id%>" placeholder="Start typing here to create a task..."></input></div>
-      <div class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>      
-    </span>
-  </form>       
-    <%= render 'shared/taskslist', project: project %>
+    <div class="form-group has-error">
+      <lable class="control-label task-control-label" for="inputError" 
+             id="project-id-new-task-error-<%= project.id %>" data-id="<%=project.id%>"></lable>
+      <input class="new_task_field input-sm" id="project_task_<%=project.id%>" 
+             placeholder="Start typing here to create a task..."></input>
+      <!--class="form-control-->
+    </div>
+    <div type="submit" class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
+    
+  </form>
+  <%= render 'shared/taskslist', project: project %>
 </ul>

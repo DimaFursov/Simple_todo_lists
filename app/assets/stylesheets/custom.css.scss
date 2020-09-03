@@ -6,14 +6,18 @@ $brand-success: linear-gradient(to bottom, #c7ffc7, #4cae4c);
 
 
 body {
-  background: linear-gradient(to bottom, #d6d0c1, orange);/*+круглые пузыри*/
+  background: linear-gradient(to bottom, #d6d0c1, orange);
   padding-top: 60px;
   padding-bottom: 60px;
-  text-align: center;
-  @keyframes{
-
-  }
+  p{
+    text-align: center;
+  }  
   /*  ------------------------------------------ -projects- ----------------------------------------------------  */
+  /*
+  .control-label{
+    display: none;
+  }
+  */
   .project-create-form{
     display: none;
     margin: 0px 200px;    
@@ -21,35 +25,12 @@ body {
   .projectsN{
       margin: 0px 200px;    
       padding-bottom: 0px;
-      margin-bottom: 0px;/* 100px*/
-    /*auto !important;*/  
-
+      margin-bottom: 0px;/* 100px*//*auto !important;*/  
     .project{
       /*padding-bottom: auto;*/
       padding: 0px 0px 60px 0px;
       background-color: #41a7ff;
     }
-
-    ol{
-      margin-left: 0px;
-      padding-left: 0px;
-    }
-
-    ul{
-      padding-left: 0px;/* 40px */
-      /*background-color: #41a7ff;  */
-      padding-bottom: auto;
-      margin-bottom: 40px;
-    }
-    .task_form{
-    
-    }
-
-    span{    
-      line-height: 1;
-      width:100%;
-      font-weight: normal;
-    }    
     .project:hover{
         cursor: default;        
         .actions{          
@@ -59,122 +40,133 @@ body {
     .actions {
       display: none;
     }
-
+    ol{
+      margin-left: 0px;
+      padding-left: 0px;
+    }
+    ul{
+      padding-left: 0px;/* 40px */
+      /*background-color: #41a7ff;  */
+      padding-bottom: auto;
+      margin-bottom: 40px;
+    }
+    .task_form{
+    }
+    span{    
+      line-height: 1;
+      width:100%;
+      font-weight: normal;
+    }    
     .project_form{
       padding-bottom: auto;
     }
-
     .project_edit{
       float:left;
       width: 70%;
     }
-
     .edit_project{
       float: right;
       margin-right: 10px;
       cursor: pointer;
     }
-
     .update_project{
       display: block;
       float: right;
       margin-right: 10px;
       cursor: pointer;
     }
-
     .delete_project{
       float: right;
       margin-right: 10px;
       cursor: pointer;
     }
-
     .project_input{
-      width: auto;
       display: none;
     }
-
     .project_name{
       float:left;
       color: white;
     }
-    /*  ------------------------------------------ -tasks- --------------------------------------------  */
-    .new_task_form{
+  }
+  .projectForm{
 
-        /*padding-top: 20px;*/
-        background-color: #ccc;
-        padding-bottom: auto;
+  }  
+  /*  ------------------------------------------ -tasks- --------------------------------------------  */
+  .new_task_form{
+    /*padding-top: 20px;*/
+    background-color: #ccc;
+    /*padding-bottom: auto;*/
 
-      input, textarea, select, .uneditable-input{
-      /*border: 1px solid #bbb;*/
-      width: 90%;
-      /*margin-bottom: 0px;*/
-      }  
-      .new_task_field{
-        float:left;        
-      }
-      .new_task{
-        display: block;
-        cursor: pointer;        
-      }      
-      .btn-success{
-        background: linear-gradient(to bottom, #c7ffc7, #4cae4c);/*$brand-success;*/
-      }
+    .new_task_field{      
+      /*width: available;*/
+      /*padding-right: 120%;*/
+      /*height: 30px !important*/
+      text-align: left;
+      Width: 120%;
     }
-    .tasks{
-      padding-top: 0px;
-      background: white;
-
-      /* --On hover show hide buttons-- */
-      /*form_delete_task*/
-      tr:hover {
-        cursor: default;
-        background-color: yellow;
-        .actions {          
-          display: block;
-        }
-      }
-      .actions {
-        display: none;
-      }
-      /*  ---buttons---  */
-      .task_priority_drag_and_drop{      
-      }      
-      .edit_task{        
-      }
-      .delete_task{        
-      }
-      input{
-        width: auto;
-      }
-      .task_input{
-        display: none;
-      }        
-      .task_status{
-      }
-      .task_name{
-      }
-      /*
-      .task_edit{
-      width: 85%;
-      }
-      .edit_task{
-        float: right;
-        margin-right: 10px;
-        cursor: pointer;
-      }
-      .update_task{
-        float: right;
-        margin-right: 10px;
-        cursor: pointer;
-      }
-      .delete_task{
-        float: right;
-        margin-right: 10px;
-        cursor: pointer;
-      }
-      */
+    .new_task{
+      float: right;
+      cursor: pointer;        
+    }      
+    .btn-success{
+      background: linear-gradient(to bottom, #c7ffc7, #4cae4c);/*$brand-success;*/
     }
   }
+  .tasks{
+    padding-top: 0px;
+    background: white;
+
+    /* --On hover show hide buttons-- */
+    /*form_delete_task*/
+    tr:hover {
+      cursor: default;
+      background-color: yellow;
+      .actions {          
+        display: block;
+      }
+    }
+    .actions {
+      display: none;
+    }
+    /*  ---buttons---  */
+    .task_priority_drag_and_drop{      
+    }      
+    .edit_task{        
+    }
+    .delete_task{        
+    }
+    input{
+      /*width: auto;*/
+    }
+    .task_input{
+      display: none;
+    }        
+    .task_status{
+    }
+    .task_name{
+    }
+    /*
+    .task_edit{
+    width: 85%;
+    }
+    .edit_task{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .update_task{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .delete_task{
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    */
+  }
+  
 
   #formButton {
   display: block;
@@ -188,93 +180,96 @@ body {
   background: red;
   display: none;/* форму видно извачально */
   }
-}
 
-section {
-  overflow: auto;
-}
 
-textarea {
-  resize: vertical;
-}
+  section {
+    overflow: auto;
+  }
 
-.center {
-  text-align: center;
+  textarea {
+    resize: vertical;
+  }
+
+  .center {
+    /*text-align: center;*/
+
+    h1 {
+      margin-bottom: 10px;
+    }
+  }
+
+
+  /* forms */
+  input {
+    height: auto !important;
+  }
+  form {
+    padding: 15px;
+    border: 1px solid #666;
+    background: #fff;
+  }
+
+  input, textarea, select, .uneditable-input {
+    border: 1px solid #bbb;
+    /*width: 100%;*/
+    /*margin-bottom: 15px;*/
+  }
+  #session_remember_me {
+    width: auto;
+    margin-left: 0;
+  }
+  /* typography */
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+  }
+
   h1 {
-    margin-bottom: 10px;
+    font-size: 3em;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+    text-align: center;
   }
-}
 
+  h2 {
+    font-size: 1.2em;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: normal;
+    color: #777;
+  }
 
-/* forms */
-input {
-  height: auto !important;
-}
-form {
-  padding: 15px;
-  border: 1px solid #666;
-  background: #fff;
-}
+  p {
+    font-size: 1.1em;
+    line-height: 1.7em;
+  }
 
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-}
-#session_remember_me {
-  width: auto;
-  margin-left: 0;
-}
-/* typography */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-}
-
-h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: #777;
-}
-
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
-}
-
-#error_explanation {
-  color: red;
-  ul {
+  #error_explanation {
     color: red;
-    margin: 0 0 30px 0;
+    ul {
+      color: red;
+      margin: 0 0 30px 0;
+    }
   }
-}
 
-.field_with_errors {
-  @extend .has-error;
-  .form-control {
-    color: $state-danger-text;
+  .field_with_errors {
+    @extend .has-error;
+    .form-control {
+      color: $state-danger-text;
+    }
   }
-}
-/* footer */
-footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px white;
-  ul {
-    list-style: none;
-    li {
-        align: center;
-        }
+    /* footer */
+  footer {
+    text-align: center;
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px white;
+    ul {
+      list-style: none;
+      li {
+          align: center;
+          }
+    }
   }
-}
+}  

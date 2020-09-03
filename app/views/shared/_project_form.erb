@@ -1,5 +1,12 @@
-<form class="project-create-form" >
-  <div><input class="project-input input-sm" id="project-input-id-<%=@project.id%>" data-id="<%=@project.id%>" 
-              placeholder="+ add Project"></input></div>
-  <div class="project-create-btn btn btn-success btn-sm" data-id="<%=@project.id%>">Create Project</div>
+<form name="projectForm" class="project-create-form">
+  <div class="form-group has-error">    
+    <label class="project-control-label control-label" for="inputError">
+      <span class="help-block"></span>
+    </label>
+    <input type="text" class="project-input-form" id="project-input-id-<%=@project.id%>" data-id="<%=@project.id%>" 
+           placeholder="+ add Project"
+           name="projectName"></input>
+  </div>
+  <div class="project-create-btn btn btn-success" data-id="<%=@project.id%>" type="submit">Create Project</div>         
+
 </form>
