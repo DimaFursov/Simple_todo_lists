@@ -8,7 +8,7 @@
     </div>  
     <div class="task_input" id="task_input_<%=task.id%>">
       <input class="task_edit" id="task_edit_<%=task.id%>" value="<%= task.name %>"></input>
-      <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div>               
+      <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div>
     </div>
   </td>
   <td>
@@ -17,5 +17,18 @@
       <div class="edit_task btn btn-default btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">EDIT</div>
       <div class="delete_task btn btn-default btn-xs" id="delete_task_button_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">DELETE</div>
     </div>    
-  </td>    
+  </td>
+  <td>    
+  <div class="task-deadline" id="task-dedline-id-<%=task.id%>" data-id="<%=task.id%>">
+      <div class="task-dedline-date" id="task-dedline-date-id-<%=task.id%>" data-id="<%=task.id%>">
+        dl:<%= task.deadline %>
+      </div>            
+    </div>  
+    <div class="task-deadline-input" id="task-deadline-input-id-<%=task.id%>" data-id="<%=task.id%>">
+      <input class="task-deadline-edit" id="task-deadline-edit-id-<%=task.id%>" value="<%= task.deadline %>"></input>
+      <div class="task-deadline-update btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">newDL</div>
+      <lable class="control-label task-deadline-label" for="inputError"
+             id="task-deadline-expired-id-<%=task.id%>" data-id="<%=task.id%>">c_at:<%=task.created_at%></lable>
+    </div>
+  </td>  
 </tr>

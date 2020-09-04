@@ -18,7 +18,6 @@
 //= require_tree .
 /**/
 $(document).ready(function() {
-
   /*  ----------------------------- drag and drop----------------------------*/  
   $('.tasks_tbody').sortable({
     update: function(e, ui){
@@ -116,7 +115,9 @@ $(document).ready(function() {
           $("#project_tasks-"+projectId).append(partialTask)
         }    
       })
-      .fail(function(errorTaskResponse) { 
+      .fail(function(errorTaskResponse) {
+        console.log(errorTaskResponse)
+        console.dir(errorTaskResponse) 
         alert(errorTaskResponse.responseJSON.name)      
       })
     }
@@ -158,6 +159,57 @@ $(document).ready(function() {
         $("#task_"+ task_id).remove("#task_"+ task_id);
       }      
     });
+  });
+
+  /*  ----------------------------- updateTaskDeadline ----------------------------*/  
+  /*
+  $(document).on('click', '.edit_task', function() {
+    var taskId =this.dataset.id
+    $("#task_name_" + taskId).toggle();
+    $("#task_input_" + taskId).toggle();    
+  });
+  */
+  /* $(document).ready(function() { need loop on task.count event and check by id------------*/
+  var currentDate = $('.current-date').text()
+  var lastTask = $('.last-task').text()
+  for (var i = 0; i < lastTask; i++) {
+    var updateTaskDeadline = $("#task-deadline-edit-id-"+i).val()
+    if (currentDate > updateTaskDeadline) {
+      $("#task-deadline-expired-id-"+i).text("Expired").css("color", "red")
+    } else if(currentDate < updateTaskDeadline){
+      $("#task-deadline-expired-id-"+i).text("inprogress").css("color", "green")
+    } 
+  }
+
+  $(document).on('click', '.task-deadline-update', function() {
+    var taskId = this.dataset.id;
+    var projectId = this.dataset.projectid;
+    var updateTaskDeadline = $("#task-deadline-edit-id-"+taskId).val();
+    const currentDate = $('.current-date').text()
+    if (currentDate > updateTaskDeadline) {        
+      $("#task-deadline-expired-id-"+taskId).text("Expired").css("color", "red")
+    }else {
+      $.ajax({
+        url: '/projects/'+projectId+'/tasks/'+taskId,
+        type: 'PATCH',
+        data: {task: {deadline: updateTaskDeadline}},
+        success: function(updateTask) {
+          if (currentDate < updateTaskDeadline) {
+            $("#task-deadline-expired-id-"+taskId).text("inprogress").css("color", "green")
+          } else if(currentDate > updateTaskDeadline){
+            $("#task-deadline-expired-id-"+taskId).text("Expired").css("color", "red")
+          }
+          console.log(updateTask)
+          //2020-09-04 10:41:06.362186
+          /*$("#task_name_" + updateTask.id).text(updateTask.name);
+          $("#task_input_" + updateTask.id).toggle();        
+          $("#task_name_" + updateTask.id).toggle();    */
+        }        
+      })
+      .fail(function(errorTaskUpdate) { 
+        alert(errorTaskUpdate)//errorTaskUpdate.responseJSON.name)
+      });
+    }
   });
 
   /*  ----------------------------- checkbox----------------------------*/  

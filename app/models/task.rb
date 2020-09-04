@@ -5,4 +5,6 @@ class Task < ActiveRecord::Base
   default_scope -> { order(:position) }
   validates :project_id, presence: true  
   validates :name, presence: true, length: { maximum: 255 }  
+  validates :deadline, length: { maximum: 27 }#26 sumbols format ~"2020-09-04 10:41:06.362186"
+
 end

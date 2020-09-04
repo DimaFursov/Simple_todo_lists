@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
+#before_action :task_deadline
 
   def index
     @tasks = Task.order(:position)
@@ -26,8 +27,9 @@ before_action :find_task,      only: [ :update, :destroy]
     @task.destroy
     render plain: "delete"
   end
-  
+
   def update  
+    #binding.pry
     if @task.update(task_params)
       render json: @task 
     else
@@ -35,10 +37,17 @@ before_action :find_task,      only: [ :update, :destroy]
     end  
   end
 
+  def task_deadline
+    @task = Task.all
+    if Tine.now > @task.deadline
+      render text: "Expired"
+    end
+  end
+
   private
 
   def task_params
-    params.require(:task).permit(:name, :status)    
+    params.require(:task).permit(:name, :status, :deadline)    
   end
 
   def find_project
