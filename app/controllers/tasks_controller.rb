@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
+  attr_accessor :vartaskTimeStatus
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
-#before_action :task_deadline
+
 
   def index
     @tasks = Task.order(:position)
@@ -37,12 +38,7 @@ before_action :find_task,      only: [ :update, :destroy]
     end  
   end
 
-  def task_deadline
-    @task = Task.all
-    if Tine.now > @task.deadline
-      render text: "Expired"
-    end
-  end
+
 
   private
 

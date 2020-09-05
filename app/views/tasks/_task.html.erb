@@ -1,34 +1,53 @@
 <tr class="task list-group-item" id="<%= dom_id(task) %>" data-projectid="<%=task.project_id%>" ><!--id= task_id_-->
+  <!-- ----------------------------------------checkbox task_status_------------------------------------------- -->
   <td>
     <input type="checkbox" class="status" id="task_status_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>" <% if task.status%><%="checked"%><%end%>>
   </td>
   <td>
     <div class="form_task_name" id="form_task_name_<%=task.id%>">
       <div class="task_name" id="task_name_<%=task.id%>"><%= task.name %></div>            
-    </div>  
+    </div>
+    <!-- ----------------------------------------task_input------------------------------------------- -->  
     <div class="task_input" id="task_input_<%=task.id%>">
       <input class="task_edit" id="task_edit_<%=task.id%>" value="<%= task.name %>"></input>
-      <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div>
+      <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div><!--to btn-->
     </div>
   </td>
+  <!-- ----------------------------------------btn------------------------------------------- -->  
   <td>
     <div class="form_delete_task actions" id="form_delete_task_<%=task.id%>">
-      <div class="task_priority_drag_and_drop btn btn-default btn-xs" id="task_priority_up_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">drag and drop</div>        
+      <div class="task_priority_drag_and_drop btn btn-default btn-xs" id="task_priority_up_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">drag and drop</div>
+
       <div class="edit_task btn btn-default btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">EDIT</div>
       <div class="delete_task btn btn-default btn-xs" id="delete_task_button_<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">DELETE</div>
     </div>    
   </td>
   <td>    
+  <!-- ----------------------------------------deadline-- project.tasks.each do |task| ----------- -->
   <div class="task-deadline" id="task-dedline-id-<%=task.id%>" data-id="<%=task.id%>">
-      <div class="task-dedline-date" id="task-dedline-date-id-<%=task.id%>" data-id="<%=task.id%>">
-        dl:<%= task.deadline %>
-      </div>            
-    </div>  
-    <div class="task-deadline-input" id="task-deadline-input-id-<%=task.id%>" data-id="<%=task.id%>">
-      <input class="task-deadline-edit" id="task-deadline-edit-id-<%=task.id%>" value="<%= task.deadline %>"></input>
+    </div> 
+    <div class="task-deadline-input has-error"
+     id="task-deadline-input-id-<%=task.id%>" data-id="<%=task.id%>">
+      <input class="task-deadline-edit " id="task-deadline-edit-id-<%=task.id%>" value="<%= task.deadline %>"></input>
       <div class="task-deadline-update btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">newDL</div>
-      <lable class="control-label task-deadline-label" for="inputError"
-             id="task-deadline-expired-id-<%=task.id%>" data-id="<%=task.id%>">c_at:<%=task.created_at%></lable>
+      <% if task.deadline %>
+      <label class="control-label task-deadline-label" for="inputError"
+             id="task-deadline-expired-id-<%=task.id%>" data-id="<%=task.id%>">
+             <%= task.deadline < Time.now ? "Expired" : nil %>
+             <%= %>
+             <!-- task.deadline < Time.now ? "Expired" : nil
+                 @taskdeadline.taskdeadline 
+                 project.tasks.taskdeadline  
+                 @taskdeadline = Task.taskdeadline 
+                 super
+                 project.tasks.taskdeadline
+                 tasks.deadline < Time.now ? "Expired" : nil
+                 task.deadline > Time.now ? "In progress" : "Expired"
+              
+             -->
+      </label>
+      <% end %>
     </div>
+
   </td>  
 </tr>

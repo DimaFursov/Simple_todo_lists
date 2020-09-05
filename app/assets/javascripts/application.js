@@ -170,6 +170,7 @@ $(document).ready(function() {
   });
   */
   /* $(document).ready(function() { need loop on task.count event and check by id------------*/
+  /*  
   var currentDate = $('.current-date').text()
   var lastTask = $('.last-task').text()
   for (var i = 0; i < lastTask; i++) {
@@ -180,7 +181,7 @@ $(document).ready(function() {
       $("#task-deadline-expired-id-"+i).text("inprogress").css("color", "green")
     } 
   }
-
+  */
   $(document).on('click', '.task-deadline-update', function() {
     var taskId = this.dataset.id;
     var projectId = this.dataset.projectid;
@@ -195,7 +196,7 @@ $(document).ready(function() {
         data: {task: {deadline: updateTaskDeadline}},
         success: function(updateTask) {
           if (currentDate < updateTaskDeadline) {
-            $("#task-deadline-expired-id-"+taskId).text("inprogress").css("color", "green")
+            $("#task-deadline-expired-id-"+taskId).text("In progress").css("color", "green")
           } else if(currentDate > updateTaskDeadline){
             $("#task-deadline-expired-id-"+taskId).text("Expired").css("color", "red")
           }

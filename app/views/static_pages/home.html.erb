@@ -8,7 +8,6 @@
   <body>
     <% if logged_in? %>
       <h2 class="current-date"><%= @date%></h2>
-      <h2 class="last-task"><%= @tasklast+Task.last.position%></h2>
       <p>  <%= render 'shared/user_info' %>  </p>
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
