@@ -1,8 +1,13 @@
 class TasksController < ApplicationController
-  attr_accessor :vartaskTimeStatus
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
-
+ 
+  def new
+    @task = Task.new
+  end
+  
+  def show
+  end
 
   def index
     @tasks = Task.order(:position)
@@ -38,12 +43,24 @@ before_action :find_task,      only: [ :update, :destroy]
     end  
   end
 
-
+  
+  def self.find_by_id(id)
+    Task.find(id)             # self.find(id)        тут будет эквивалентно так как у метода идёт 'def self.'
+  end
+    # project.tasks.each do |task| 
+    #before_action :find_task,      only: [ :update, :destroy]
+  def taskTimeStatus
+    #@task_deadline = @task.deadline #undefined method `deadline' 
+    if self.deadline < Time.now 
+      return true
+    end
+    return false
+  end 
 
   private
 
   def task_params
-    params.require(:task).permit(:name, :status, :deadline)    
+    params.require(:task).permit(:name, :status, :deadline)
   end
 
   def find_project

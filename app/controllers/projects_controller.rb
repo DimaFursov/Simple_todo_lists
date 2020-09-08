@@ -2,13 +2,20 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :update, :destroy]
   before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
   before_action :correct_user,   only: [:destroy, :edit, :update]
+  helper_method :print_all
+
+  def print_all
+    puts "print_all"
+  end
   
   def index
     @projects = Project.all
   end
+
   def new
     @project = Project.new    
   end
+
   def show 
     @project = Project.find(params[:id])
     @task = Task.find(params[:project_id])
@@ -43,6 +50,10 @@ class ProjectsController < ApplicationController
     @project.destroy    
     render plain: "delete"
   end
+
+  def projectTaskTimeStatus
+
+  end  
 
   private
 

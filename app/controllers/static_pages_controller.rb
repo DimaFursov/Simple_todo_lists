@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
       @projects = current_user.projects
       @project_count = current_user.projects.count
       @date = Time.now
-      
+     
 
       
     end  

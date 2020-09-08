@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'allstatusabc' => 'application#allstatusabc'
   get 'sessions/new'
   root 'static_pages#home'
   get  'static_pages/home'
