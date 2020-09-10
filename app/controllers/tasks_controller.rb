@@ -14,7 +14,8 @@ before_action :find_task,      only: [ :update, :destroy]
   end  
 
   def create        
-    @task = @project.tasks.build(task_params)
+    #@task = @project.tasks.build(task_params)
+    @task = @project.tasks.new(task_params)
     if @task.save
       render partial: @task
     else      

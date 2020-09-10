@@ -19,7 +19,8 @@ class ProjectsController < ApplicationController
 
   def create        
     #binding.pry
-    @project = current_user.projects.build(project_params)
+    #@project = current_user.projects.build(project_params)
+    @project = current_user.projects.new(project_params)
     if @project.save      
       @projects = current_user.projects
       @project_count = current_user.projects.count
