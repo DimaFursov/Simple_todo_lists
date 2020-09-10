@@ -12,12 +12,18 @@
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
       <p> From ruby garage </p>
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
+      <!-- if @projects.any?  -->
+      <% binding.pry %>
+
+      <% if @projects.any? %>
+      <p>current_user.projects.any? <%= current_user.projects.any? %></p>
       <div class="projectsN">
-        <%= render 'shared/feedprojects' %>
+        
+        <%= render 'shared/listprojects' %>
+        
       </div>
+      <% end %>
+      <!--   -->
       <button class="btn btn-primary" type="button" id="formButton">+ add_TODO_List</button>
         <%= render 'shared/project_form' %>
       <% else %>

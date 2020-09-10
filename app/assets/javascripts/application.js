@@ -34,7 +34,7 @@ $(document).ready(function() {
   $("#formButton").click(function() {
       $(".project-create-form").toggle();    
     });
-  $(".project-create-form").show("slow");//remove afterfinish work
+  $(".project-create-form").show("slow");// -  ------------- remove afterfinish work
   /*--------------------------------------- create projects -------------------------------------*/
   $(document).on('click', '.project-create-btn', function() {    
     var newProjectName = $(".project-input-form").val()
@@ -50,7 +50,7 @@ $(document).ready(function() {
       success: function(partialProjectsList) {
         $(".project-control-label").text("")
         $('.project-input-form').val('')
-        $(".feed_itemsprojects_list").append(partialProjectsList)
+        $(".items-projects-list").append(partialProjectsList)
         }
       })
       .fail(function(errorProjectResponse) {
@@ -81,19 +81,25 @@ $(document).ready(function() {
   $(document).on('click', '.update_project', function() {
     var projectId = this.dataset.id;
     var newProjectName = $("#project_edit_"+projectId).val()
-    $.ajax({
-      url: '/projects/' + projectId,
-      type: 'PATCH',
-      data: {project: {name: newProjectName}},
-      success: function(updateProject) {
-        $("#project_input_" + updateProject.id).toggle();
-        $("#project_name_" + updateProject.id).text(updateProject.name);
-        $("#form_project_name_" + updateProject.id).toggle(); 
-      }        
-    })
-    .fail(function(errorProjectUpdate) { 
-      alert(errorProjectUpdate.responseJSON.name)
-    })
+    if (newProjectName == "") {        
+      $("#project-update-id-error-" + projectId).text("Project name must be filled out")
+    }else if(newProjectName.length>80){ 
+      $("#project-update-id-error-" + projectId).text("Project name is too long (maximum is 80 characters)")
+    }else { 
+      $.ajax({
+        url: '/projects/' + projectId,
+        type: 'PATCH',
+        data: {project: {name: newProjectName}},
+        success: function(updateProject) {
+          $("#project_input_" + updateProject.id).toggle();
+          $("#project_name_" + updateProject.id).text(updateProject.name);
+          $("#form_project_name_" + updateProject.id).toggle(); 
+        }        
+      })
+      .fail(function(errorProjectUpdate) { 
+        alert(errorProjectUpdate.responseJSON.name)
+      })
+    }  
   });  
   
   /*  ----------------------------- new_task ---------------------------------------------*/  
@@ -116,8 +122,6 @@ $(document).ready(function() {
         }    
       })
       .fail(function(errorTaskResponse) {
-        console.log(errorTaskResponse)
-        console.dir(errorTaskResponse) 
         alert(errorTaskResponse.responseJSON.name)      
       })
     }
@@ -132,20 +136,26 @@ $(document).ready(function() {
   $(document).on('click', '.update_task', function() {
     var taskId = this.dataset.id;
     var projectId = this.dataset.projectid;
-    var newTaskName = $("#task_edit_"+taskId).val();    
-    $.ajax({
-      url: '/projects/'+projectId+'/tasks/'+taskId,
-      type: 'PATCH',
-      data: {task: {name: newTaskName}},
-      success: function(updateTask) {
-        $("#task_name_" + updateTask.id).text(updateTask.name);
-        $("#task_input_" + updateTask.id).toggle();        
-        $("#task_name_" + updateTask.id).toggle();    
-      }        
-    })
-    .fail(function(errorTaskUpdate) { 
-      alert(errorTaskUpdate.responseJSON.name)
-    });
+    var newTaskName = $("#task_edit_"+taskId).val();
+    if (newTaskName == "") {        
+      $("#task-edit-control-label-id-"+taskId).text("Task name must be filled out")
+    }else if(newTaskName.length>255){ 
+      $("#task-edit-control-label-id-"+taskId).text("Task name is too long (maximum is 255 characters)")
+    }else {
+      $.ajax({
+        url: '/projects/'+projectId+'/tasks/'+taskId,
+        type: 'PATCH',
+        data: {task: {name: newTaskName}},
+        success: function(updateTask) {
+          $("#task_name_" + updateTask.id).text(updateTask.name);
+          $("#task_input_" + updateTask.id).toggle();        
+          $("#task_name_" + updateTask.id).toggle();    
+        }        
+      })
+      .fail(function(errorTaskUpdate) {
+        alert(errorTaskUpdate.responseJSON.name)
+      })
+    }  
   });
 
   /*-------------------------- delete TASK ---------------------------*/
@@ -162,34 +172,20 @@ $(document).ready(function() {
   });
 
   /*  ----------------------------- updateTaskDeadline ----------------------------*/  
-  /*
-  $(document).on('click', '.edit_task', function() {
+  
+  $(document).on('click', '.deadline-task', function() {
     var taskId =this.dataset.id
-    $("#task_name_" + taskId).toggle();
-    $("#task_input_" + taskId).toggle();    
+    $("#task-deadline-edit-id-" + taskId).toggle();
+    $("#task-deadline-update-id-" + taskId).toggle();    
   });
-  */
-  /* $(document).ready(function() { need loop on task.count event and check by id------------*/
-  /*  
-  var currentDate = $('.current-date').text()
-  var lastTask = $('.last-task').text()
-  for (var i = 0; i < lastTask; i++) {
-    var updateTaskDeadline = $("#task-deadline-edit-id-"+i).val()
-    if (currentDate > updateTaskDeadline) {
-      $("#task-deadline-expired-id-"+i).text("Expired").css("color", "red")
-    } else if(currentDate < updateTaskDeadline){
-      $("#task-deadline-expired-id-"+i).text("inprogress").css("color", "green")
-    } 
-  }
-  */
   $(document).on('click', '.task-deadline-update', function() {
     var taskId = this.dataset.id;
     var projectId = this.dataset.projectid;
     var updateTaskDeadline = $("#task-deadline-edit-id-"+taskId).val();
     const currentDate = $('.current-date').text()
-    if (currentDate > updateTaskDeadline) {        
-      $("#task-deadline-expired-id-"+taskId).text("Expired").css("color", "red")
-    }else {
+    if (currentDate >= updateTaskDeadline) {        
+      $("#task-deadline-expired-id-"+taskId).text("Set upcoming date").css("color", "red")
+    }else{
       $.ajax({
         url: '/projects/'+projectId+'/tasks/'+taskId,
         type: 'PATCH',
@@ -197,18 +193,11 @@ $(document).ready(function() {
         success: function(updateTask) {
           if (currentDate < updateTaskDeadline) {
             $("#task-deadline-expired-id-"+taskId).text("In progress").css("color", "green")
-          } else if(currentDate > updateTaskDeadline){
-            $("#task-deadline-expired-id-"+taskId).text("Expired").css("color", "red")
           }
-          console.log(updateTask)
-          //2020-09-04 10:41:06.362186
-          /*$("#task_name_" + updateTask.id).text(updateTask.name);
-          $("#task_input_" + updateTask.id).toggle();        
-          $("#task_name_" + updateTask.id).toggle();    */
         }        
       })
-      .fail(function(errorTaskUpdate) { 
-        alert(errorTaskUpdate)//errorTaskUpdate.responseJSON.name)
+      .fail(function(errorTaskUpdate) {
+        alert(errorTaskUpdate.responseJSON.name)
       });
     }
   });
@@ -222,10 +211,7 @@ $(document).ready(function() {
       url: '/projects/'+projectId+'/tasks/'+taskId,
       type: 'PATCH',
       data: {task: {status: newTaskStatus}},
-      success: function(updateData) {        
-        console.dir("update data")
-        console.dir(updateData)
-        console.log(updateData)
+      success: function(updateData) {
       }        
     });    
   });

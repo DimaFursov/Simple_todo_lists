@@ -2,13 +2,6 @@ class TasksController < ApplicationController
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
  
-  def new
-    @task = Task.new
-  end
-  
-  def show
-  end
-
   def index
     @tasks = Task.order(:position)
   end
@@ -42,20 +35,6 @@ before_action :find_task,      only: [ :update, :destroy]
       render json: @task.errors.messages, status: :unprocessable_entity
     end  
   end
-
-  
-  def self.find_by_id(id)
-    Task.find(id)             # self.find(id)        тут будет эквивалентно так как у метода идёт 'def self.'
-  end
-    # project.tasks.each do |task| 
-    #before_action :find_task,      only: [ :update, :destroy]
-  def taskTimeStatus
-    #@task_deadline = @task.deadline #undefined method `deadline' 
-    if self.deadline < Time.now 
-      return true
-    end
-    return false
-  end 
 
   private
 

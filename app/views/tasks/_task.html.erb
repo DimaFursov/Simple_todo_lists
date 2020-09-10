@@ -10,7 +10,8 @@
       <div class="task_name" id="task_name_<%=task.id%>"><%= task.name %></div>            
     </div>
     <!-- ----------------------------------------task_input------------------------------------------- -->  
-    <div class="task_input" id="task_input_<%=task.id%>">
+    <div class="task_input has-error" id="task_input_<%=task.id%>">
+      <label class="control-label task-edit-control-label" for="inputError" id="task-edit-control-label-id-<%=task.id%>" data-id="<%=task.id%>"></label>
       <input class="task_edit" id="task_edit_<%=task.id%>" value="<%= task.name %>"></input>
       <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div><!--to btn-->
     </div>
@@ -26,17 +27,17 @@
            data-projectid="<%=task.project_id%>">DELETE</div>
     </div>    
   </td>
-  <td>    
   <!-- ----------------------------------------deadline-- project.tasks.each do |task| ----------- -->
+  <td>
   <div class="task-deadline" id="task-dedline-id-<%=task.id%>" data-id="<%=task.id%>">
     </div> 
     <div class="task-deadline-input has-error"
      id="task-deadline-input-id-<%=task.id%>" data-id="<%=task.id%>">
-      <!--<div class="deadline-task btn btn-default btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">DEADLINE_INPUT</div>
+      <div class="deadline-task actions btn btn-default btn-xs" data-id="<%=task.id%>">Set deadline</div>
       <div class="update-deadline-task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE_DEADLINE</div>
-      -->
-      <input class="task-deadline-edit " id="task-deadline-edit-id-<%=task.id%>" value="<%= task.deadline %>"></input>
-      <div class="task-deadline-update btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">newDL</div>
+      <input class="task-deadline-edit" id="task-deadline-edit-id-<%=task.id%>" value="<%= task.deadline %>"></input>
+      <div class="task-deadline-update btn btn-success btn-xs"
+           id="task-deadline-update-id-<%=task.id%>" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">newDL</div>
       <% if task.deadline %>
       <label class="control-label task-deadline-label" for="inputError"
              id="task-deadline-expired-id-<%=task.id%>" data-id="<%=task.id%>">

@@ -14,6 +14,14 @@ body {
   }  
   
   /*  ------------------------------------------ -projects- ----------------------------------------------------  */
+  .current-date{
+    display: none;
+  }
+  /*
+  #project-{
+    display: none;
+  }
+  */
   /*
   .control-label{
     display: none;
@@ -21,12 +29,16 @@ body {
   */
   .project-create-form{
     display: none;
-    margin: 0px 200px;    
+    /*margin: 0px 200px;    */
   }
+  
   .projectsN{
-      margin: 0px 200px;    
-      padding-bottom: 0px;
-      margin-bottom: 0px;/* 100px*//*auto !important;*/  
+    margin: 0px 200px;    
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    /* 
+    .items-projects-list{
+    */
     .project{
       /*padding-bottom: auto;*/
       padding: 0px 0px 60px 0px;
@@ -63,7 +75,7 @@ body {
     }
     .project_edit{
       float:left;
-      width: 70%;
+      /*width: 70%;*/
     }
     .edit_project{
       float: right;
@@ -88,12 +100,25 @@ body {
       float:left;
       color: white;
     }
+    /*
+    }
+    */
   }
+  
   .projectForm{
 
   }  
   /*  ------------------------------------------ -tasks- --------------------------------------------  */
-  .new_task_form{
+  .update-deadline-task{
+    display: none;
+  }
+  .task-deadline-edit{
+    display: none;
+  }
+  .task-deadline-update{
+    display: none;
+  }
+  .new-task-form{
     /*padding-top: 20px;*/
     background-color: #ccc;
     /*padding-bottom: auto;*/
