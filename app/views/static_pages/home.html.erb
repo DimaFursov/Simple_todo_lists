@@ -7,24 +7,12 @@
   </head>
   <body>
     <% if logged_in? %>
-      <!-- del 
-       render 'shared/feed' 
-      -->
       <h2 class="current-date"><%= @date%></h2>
       <p>  <%= render 'shared/user_info' %>  </p>
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
       <p> From ruby garage </p>
-      <!-- if @projects.any?  -->
-      <% #binding.pry %>
-      <p>@projects.count <%= @projects.count%></p>
-      <p>current_user.projects.any? <%= current_user.projects.any? %></p>
-      <p>current_user.listprojects.any? <%= current_user.listprojects.any? %></p>
-      <!--<div class="projectsN">-->
-        
-        <%= render 'shared/listprojects' %>
-        
-      <!--</div>-->
+      <%= render 'shared/listprojects' %>
       <button class="btn btn-primary" type="button" id="add-todo-list">+ add_TODO_List</button>
         <%= render 'shared/project_form' %>
       <% else %>

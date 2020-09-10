@@ -1,3 +1,4 @@
+<% if project.id %>
 <ul class="project_form" id="project-<%= project.id %>">  
   <form class="project form-inline has-error">
     <span class="form_delete_project" id="form_delete_project_<%=project.id%>">
@@ -21,10 +22,10 @@
              id="project-id-new-task-error-<%= project.id %>" data-id="<%=project.id%>"></label>
       <input class="new_task_field input-sm" id="project_task_<%=project.id%>" 
              placeholder="Start typing here to create a task..."></input>
-      <!--class="form-control-->
     </div>
     <div type="submit" class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
   </form>
   <!-- _task -->
   <%= render 'shared/taskslist', project: project %>
 </ul>
+<% end %>

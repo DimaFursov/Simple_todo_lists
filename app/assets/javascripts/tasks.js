@@ -1,15 +1,3 @@
-  /*  ----------------------------- drag and drop----------------------------*/  
-  $('.tasks_tbody').sortable({
-    update: function(e, ui){
-      $.ajax({
-        url: $(this).data("url"),
-        type:'PATCH',
-        data:$(this).sortable('serialize'),
-      }
-      );
-    },
-    handle: ".task_priority_drag_and_drop"    
-  });  
   /*  ----------------------------- checkbox----------------------------*/  
   $(document).on('click', '.status', function() {
     var taskId = this.dataset.id;

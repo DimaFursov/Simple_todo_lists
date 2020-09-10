@@ -1,16 +1,8 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only:    [ :update, :destroy] #:show
-  before_action :logged_in_user, only: [ :create, :update, :destroy]# :edit,
-  before_action :correct_user,   only: [ :update, :destroy]# :edit,
+  before_action :set_project, only:    [ :update, :destroy]
+  before_action :logged_in_user, only: [ :create, :update, :destroy]
+  before_action :correct_user,   only: [ :update, :destroy]
   
-  #def index
-  #  @projects = Project.all
-  #end
-
-  #def new
-  #  @project = Project.new    
-  #end
-
   def show 
     @project = Project.find(params[:id])
     @task = Task.find(params[:project_id])
@@ -18,8 +10,6 @@ class ProjectsController < ApplicationController
   end
 
   def create        
-    #binding.pry
-    #@project = current_user.projects.build(project_params)
     @project = current_user.projects.new(project_params)
     if @project.save      
       @projects = current_user.projects
@@ -29,10 +19,6 @@ class ProjectsController < ApplicationController
       render json: @project.errors.messages, status: :unprocessable_entity
     end
   end
-
-  #def edit
-  #  @projectID = Project.find(params[:id])
-  #end
 
   def update 
     if @project.update(project_params)
@@ -61,4 +47,4 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.find_by(id: params[:id])
     redirect_to root_url if @project.nil?
   end
-end 
+end

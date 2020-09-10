@@ -10,11 +10,6 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_secure_password
 
-  # Возвращает ленту projects current_user
-  def listprojects
-    Project.where("user_id = ?", id)
-  end
-  
   def authenticated?(attribute, token)
       digest = send("#{attribute}_digest")
       return false if digest.nil?
