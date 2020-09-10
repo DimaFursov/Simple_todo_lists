@@ -1,6 +1,9 @@
-<!-- if @projects.any? -->
-  <ol class="items-projects-list">
-    <!--  #project-  -->
-    <%= render @projects %>
+<% if @projects.any? %>
+  <ol class="projects items-projects-list">
+    <!--  #project-
+        render @list_itemsprojects
+        render @projects
+    -->
+    <%= render @list_itemsprojects %>
   </ol>
-<!--% end %--s>
+<% end %>  

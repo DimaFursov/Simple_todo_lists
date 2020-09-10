@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy]
-  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:destroy, :edit, :update]
+  before_action :set_project, only:    [ :update, :destroy] #:show
+  before_action :logged_in_user, only: [ :create, :update, :destroy]# :edit,
+  before_action :correct_user,   only: [ :update, :destroy]# :edit,
   
   #def index
   #  @projects = Project.all
@@ -30,9 +30,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit
-    @projectID = Project.find(params[:id])
-  end
+  #def edit
+  #  @projectID = Project.find(params[:id])
+  #end
 
   def update 
     if @project.update(project_params)

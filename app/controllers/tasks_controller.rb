@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+before_action :logged_in_user, only: [ :create, :update, :destroy]
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
  

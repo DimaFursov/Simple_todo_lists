@@ -29,16 +29,16 @@ body {
   */
   .project-create-form{
     display: none;
-    /*margin: 0px 200px;    */
+    margin: 0px 200px;
   }
-  
-  .projectsN{
+    /*.projectsN*/
+  .projects{
     margin: 0px 200px;    
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    padding-left: 0px; /* del */
     /* 
     .items-projects-list{
     */
+
     .project{
       /*padding-bottom: auto;*/
       padding: 0px 0px 60px 0px;
@@ -194,7 +194,7 @@ body {
   }
   
 
-  #formButton {
+  #add-todo-list {
   display: block;
   margin-right: auto;
   margin-left: auto;
