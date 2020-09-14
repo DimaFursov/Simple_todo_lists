@@ -1,5 +1,4 @@
-<!--_project _taskslist -->
-<tr class="task list-group-item" id="<%= dom_id(task) %>" data-projectid="<%=task.project_id%>" ><!--id= task_id_-->
+<tr class="task list-group-item" id="<%= dom_id(task) %>" data-projectid="<%=task.project_id%>" >
   <!-- ----------------------------------------checkbox task_status_------------------------------------------- -->
   <td>
     <input type="checkbox" class="status" id="task_status_<%=task.id%>" data-id="<%=task.id%>" 
@@ -13,7 +12,7 @@
     <div class="task_input has-error" id="task_input_<%=task.id%>">
       <label class="control-label task-edit-control-label" for="inputError" id="task-edit-control-label-id-<%=task.id%>" data-id="<%=task.id%>"></label>
       <input class="task_edit" id="task_edit_<%=task.id%>" value="<%= task.name %>"></input>
-      <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div><!--to btn-->
+      <div class="update_task btn btn-success btn-xs" data-id="<%=task.id%>" data-projectid="<%=task.project_id%>">UPDATE</div>
     </div>
   </td>
   <!-- ----------------------------------------btn------------------------------------------- -->  
@@ -42,9 +41,6 @@
       <label class="control-label task-deadline-label" for="inputError"
              id="task-deadline-expired-id-<%=task.id%>" data-id="<%=task.id%>">
              <%= task.deadline_status %>
-             <!--task.deadline_status
-              task_deadline_status(task)? "Expired" : nil
-             -->
       </label>
       <% end %>
     </div>

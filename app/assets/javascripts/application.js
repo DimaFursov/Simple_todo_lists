@@ -11,21 +11,24 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 //= require jquery-ui/widget
 //= require jquery-ui/sortable
-//= require jquery_ujs
 //= require turbolinks
 //= require_tree .
 /**/
+
+/* ----------------------------------------------------------------------------------------------*/
 $(document).ready(function() {
-  /* + add_TODO_LIST btn */
+  /*  + add_TODO_LIST btn  */
   $("#add-todo-list").click(function() {
       $(".project-create-form").toggle();    
     });
   $(".project-create-form").show("slow");// -  ------------- remove afterfinish work
-  /*  ----------------------------- TASK drag and drop ----------------------------*/  
-  $('.tasks_tbody').sortable({
+  /*  ----------------------------- TASK drag and drop ----------------------------------*/
+  $(".tasks_tbody").sortable({
     update: function(e, ui){
+      
       $.ajax({
         url: $(this).data("url"),
         type:'PATCH',
@@ -33,5 +36,6 @@ $(document).ready(function() {
       });
     },
     handle: ".task_priority_drag_and_drop"    
-  });  
+  });
+  /* ----------------------------------------------------------------------------------------------*/  
 });

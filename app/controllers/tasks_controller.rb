@@ -2,10 +2,6 @@ class TasksController < ApplicationController
 before_action :logged_in_user, only: [ :create, :update, :destroy]
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
- 
-  def index
-    @tasks = Task.order(:position)
-  end
   
   def sort
     params[:task].each_with_index do |id, index| 
@@ -13,11 +9,17 @@ before_action :find_task,      only: [ :update, :destroy]
     end    
     head :ok
   end  
-
-  def create        
-    #@task = @project.tasks.build(task_params)
+  
+  def create
     @task = @project.tasks.new(task_params)
     if @task.save
+      @tasks = Task.all
+      @tasks.each do |t|
+        if t.id != @task.id
+          t.position = t.position + 1
+          t.save
+        end
+      end
       render partial: @task
     else      
       render json: @task.errors.messages, status: :unprocessable_entity
@@ -30,18 +32,22 @@ before_action :find_task,      only: [ :update, :destroy]
   end
 
   def update  
+    #@task_position = @task.position
     #binding.pry
+    #params.require(:task).permit(:name, :status, :deadline)
     if @task.update(task_params)
-      render json: @task 
+      render json: @task
     else
       render json: @task.errors.messages, status: :unprocessable_entity
-    end  
+    end
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:name, :status, :deadline)
+    
+    params[:task][:position] = 1
+    params.require(:task).permit(:name, :status, :deadline, :position)#, :priority :position
   end
 
   def find_project

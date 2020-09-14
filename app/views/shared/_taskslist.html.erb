@@ -1,13 +1,8 @@
 <table class="tasks table" id="project_tasks-<%= project.id %>" data-id="<%= project.id %>">
-  <tbody class="tasks_tbody list-group" data-url="<%= sort_tasks_path %>">
-
+  <tbody id="tasks-list-<%= project.id %>" class="tasks_tbody list-group" data-id="<%= project.id %>" data-url="<%= sort_tasks_path %> ">
     <% project.tasks.each do |task| %>
-    
       <!-- sort by :priority-->
-      <!-- _project -->
       <%= render task, project: project  %>
-
-      
     <% end %>
   </tbody>
 </table>

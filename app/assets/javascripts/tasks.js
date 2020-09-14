@@ -27,7 +27,7 @@
         success: function(partialTask) {
           $("#project-id-new-task-error-"+projectId).text("")
           $("#project_task_"+projectId).val('')
-          $("#project_tasks-"+projectId).append(partialTask)
+          $("#tasks-list-"+projectId).prepend(partialTask)
         }    
       })
       .fail(function(errorTaskResponse) {
