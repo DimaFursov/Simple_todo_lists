@@ -11,6 +11,7 @@ before_action :find_task,      only: [ :update, :destroy]
   end  
   
   def create
+    params[:task][:position] = 1
     @task = @project.tasks.new(task_params)
     if @task.save
       @tasks = Task.all
@@ -32,9 +33,6 @@ before_action :find_task,      only: [ :update, :destroy]
   end
 
   def update  
-    #@task_position = @task.position
-    #binding.pry
-    #params.require(:task).permit(:name, :status, :deadline)
     if @task.update(task_params)
       render json: @task
     else
@@ -45,9 +43,7 @@ before_action :find_task,      only: [ :update, :destroy]
   private
 
   def task_params
-    
-    params[:task][:position] = 1
-    params.require(:task).permit(:name, :status, :deadline, :position)#, :priority :position
+    params.require(:task).permit(:name, :status, :deadline, :position)
   end
 
   def find_project
