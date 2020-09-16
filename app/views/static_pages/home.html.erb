@@ -7,6 +7,14 @@
   </head>
   <body>
     <% if logged_in? %>
+      <section>
+        <%= link_to 'defApplication', defApplication_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'defFromProjectsController', defFromProjectsController_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'all_status_asc', all_status_asc_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'all_tasks_count_in_project_desc', all_tasks_count_in_project_desc_path, class: "btn btn-xs btn-default" %>
+
+
+      </section>  
       <h2 class="current-date"><%= @date%></h2>
       <p>  <%= render 'shared/user_info' %>  </p>
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>

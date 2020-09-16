@@ -53,12 +53,15 @@
   });
   /*-------------------------------------- delete_project  -------------------------------------*/
   $(document).on('click', '.delete_project', function() {
+    var confirmDelProject = confirm("Project and all the tasks in it will be deleted. Are you sure?")
     var id = this.dataset.id
-    $.ajax({
-      url: '/projects/' + id,
-      type: 'DELETE',
-      success: function(result) {
-        $("#project-"+ id).remove("#project-"+ id);        
-      }
-    });
+    if (confirmDelProject === true) {
+      $.ajax({
+        url: '/projects/' + id,
+        type: 'DELETE',
+        success: function(result) {
+          $("#project-"+ id).remove("#project-"+ id);        
+        }
+      });
+    }  
   });

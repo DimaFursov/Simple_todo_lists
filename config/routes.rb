@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'allstatusabc' => 'application#allstatusabc'
+  get 'defApplication' => 'application#defApplication'
+  get 'defFromProjectsController' => 'projects#defFromProjectsController'
+  get 'all_tasks_count_in_project_desc' => 'tasks#all_tasks_count_in_project_desc'
+  get 'all_status_asc' => 'technical_requirements#all_status_asc'
+  
+   
   get 'sessions/new'
   root 'static_pages#home'
   get  'static_pages/home'

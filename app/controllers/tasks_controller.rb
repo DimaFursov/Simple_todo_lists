@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
-before_action :logged_in_user, only: [ :create, :update, :destroy]
+before_action :logged_in_user, only: [ :index, :create, :update, :destroy]
 before_action :find_project,   only: [ :create, :update, :destroy]
 before_action :find_task,      only: [ :update, :destroy]
+
+
+  def index
+    @tasks = Task.all.unscoped#order(:position).all#published
+  end  
   
   def sort
     params[:task].each_with_index do |id, index| 
@@ -21,7 +26,8 @@ before_action :find_task,      only: [ :update, :destroy]
           t.save
         end
       end
-      render partial: @task
+      render partial: @task 
+      #Task.order(position: :asc).all
     else      
       render json: @task.errors.messages, status: :unprocessable_entity
     end

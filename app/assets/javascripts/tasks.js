@@ -2,12 +2,17 @@
   $(document).on('click', '.status', function() {
     var taskId = this.dataset.id;
     var projectId = this.dataset.projectid;
-    var newTaskStatus = document.querySelector("#task_status_"+taskId).checked
+    var newTaskStatus = $(this).is(":checked")
     $.ajax({
       url: '/projects/'+projectId+'/tasks/'+taskId,
       type: 'PATCH',
       data: {task: {status: newTaskStatus}},
-      success: function(updateData) {
+      success: function(checkboxStatus) {
+        if (checkboxStatus.status === true){
+          console.log('Status done: ' + checkboxStatus.status);
+        } else{
+          console.log('Status reopen: ' + checkboxStatus.status);
+        }
       }        
     });    
   });
@@ -81,15 +86,15 @@
   $(document).on('click', '.deadline-task', function() {
     var taskId =this.dataset.id
     $("#task-deadline-edit-id-" + taskId).toggle();
-    $("#task-deadline-update-id-" + taskId).toggle();    
+    $("#task-deadline-update-id-" + taskId).toggle();  
   });
-  $(document).on('click', '.task-deadline-update', function() {
+  $(document).on('click', '.task-deadline-update', function() { 
     var taskId = this.dataset.id;
     var projectId = this.dataset.projectid;
     var updateTaskDeadline = $("#task-deadline-edit-id-"+taskId).val();
     const currentDate = $('.current-date').text()
     if (currentDate >= updateTaskDeadline) {        
-      $("#task-deadline-expired-id-"+taskId).text("Set upcoming date").css("color", "red")
+      $("#task-deadline-expired-id-"+taskId).text("Set upcoming date: year-mounth-day hour:minute:second UTC").css("color", "red")
     }else{
       $.ajax({
         url: '/projects/'+projectId+'/tasks/'+taskId,
