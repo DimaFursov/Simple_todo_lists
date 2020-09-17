@@ -8,11 +8,12 @@
   <body>
     <% if logged_in? %>
       <section>
-        <%= link_to 'defApplication', defApplication_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'defFromProjectsController', defFromProjectsController_path, class: "btn btn-xs btn-default" %>
         <%= link_to 'all_status_asc', all_status_asc_path, class: "btn btn-xs btn-default" %>
         <%= link_to 'all_tasks_count_in_project_desc', all_tasks_count_in_project_desc_path, class: "btn btn-xs btn-default" %>
-
+        <%= link_to 'all_count_tasks_project_order_projects_name', all_count_tasks_project_order_projects_name_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'tasks_projects_name_beginning_n', tasks_projects_name_beginning_n_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'tasks_duplicate_name_asc', tasks_duplicate_name_asc_path, class: "btn btn-xs btn-default" %>
+        
 
       </section>  
       <h2 class="current-date"><%= @date%></h2>

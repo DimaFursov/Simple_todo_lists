@@ -33,12 +33,6 @@ class ProjectsController < ApplicationController
     render plain: "delete"
   end
 
-  def defFromProjectsController
-    @project = Project.first
-    #SELECT * FROM clients ORDER BY clients.id ASC LIMIT 1
-  end
-
-
   private
 
   def project_params   
