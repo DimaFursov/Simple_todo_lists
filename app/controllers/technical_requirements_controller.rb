@@ -2,10 +2,7 @@ class TechnicalRequirementsController < ApplicationController
 
   #1. get all statuses, not repeating, alphabetically ordered
   def all_status_asc
-    #render json: Task.select(:name, :status).order(name: :asc).unscoped
-    #render json: Task.select(:name, :status).order(name: :asc)
     render json: Task.select(:name, :status).order(status: :desc)
-    #SELECT DISTINCT status FROM tasks ORDER BY status
   end
 
   #2. get the count of all tasks in each project, order by tasks count descending
@@ -22,13 +19,20 @@ class TechnicalRequirementsController < ApplicationController
 
   #4. get the tasks for all projects having the name beginning with "N" letter
   def tasks_projects_name_beginning_n
-    #render json: Project.find_by_sql("SELECT t.name as task_name, p.name as project_name FROM tasks t, projects p WHERE p.name LIKE "N%" AND t.project_id = p.id")
+    render json: Project.find_by_sql("SELECT t.name as task_name, p.name as project_name 
+      FROM tasks t, projects p 
+      WHERE p.name LIKE 'N%' AND t.project_id = p.id")
+    # 'N%'
   end
 
   #5. get the list of all projects containing the 'a' letter in the middle of
   #the name, and show the tasks count near each project. Mentionthat there can exist projects without tasks and tasks with
   # project_id = NULL
-
+  def list_projects_cont_a_middle
+    render json: Project.find_by_sql("SELECT p.name as project_name, count(t.id) as count_tasks 
+      FROM projects p LEFT JOIN tasks t on t.project_id = p.id 
+      WHERE p.name LIKE '%a%' AND p.name NOT LIKE 'a%' AND p.name NOT LIKE '%a' GROUP BY project_name")
+  end
 
   #6. get the list of tasks with duplicate names. Order alphabetically
   def tasks_duplicate_name_asc
@@ -37,8 +41,14 @@ class TechnicalRequirementsController < ApplicationController
 
   #7. get list of tasks having several exact matches of both name and
   #status, from the project 'Garage'. Order by matches count
-
-
+  def tasks_exact_matches_both_name_status
+    render json: Project.find_by_sql("SELECT t.name, COUNT(*) as task_count, t.status 
+      FROM tasks t, projects p WHERE p.name='Garage' AND t.project_id = p.id GROUP BY t.name, t.status HAVING count(*)>1 ORDER BY task_count")
+  end  
+  
   #8. - get the list of project names having more than 10 tasks in status'completed'. Order by project_id
-
+  def list_project_more_10_tasks_true
+    render json: Project.find_by_sql("SELECT p.name 
+      FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t WHERE p.id=t.project_id GROUP BY `project_id` AND t.status HAVING count(`id`)>10) ORDER BY p.id ASC")  
+  end  
 end
