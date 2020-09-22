@@ -2,11 +2,15 @@ class TechnicalRequirementsController < ApplicationController
 
   #1. get all statuses, not repeating, alphabetically ordered
   def all_status_asc
-    render json: Task.select(:name, :status).order(status: :desc)
+    #render json: Project.select(:name, :status).order(name: :asc).unscoped
+    render json: Task.select(:status).distinct.order(status: :asc)
+    #Task.select(:status).distinct.order(status: :asc)
+
   end
 
   #2. get the count of all tasks in each project, order by tasks count descending
   def all_tasks_count_in_project_desc
+
     render json: Project.find_by_sql("SELECT p.name as project_name, count(t.id) as count_tasks 
       FROM projects p LEFT JOIN tasks t ON  t.project_id = p.id  GROUP BY project_name ORDER BY count_tasks DESC")
   end
@@ -48,7 +52,13 @@ class TechnicalRequirementsController < ApplicationController
   
   #8. - get the list of project names having more than 10 tasks in status'completed'. Order by project_id
   def list_project_more_10_tasks_true
+    #["name = ? AND status = true", "First Subject"]
+    #Project.select(:project_id).where("status = ?", "true").order(:project_id)
+    #Project.where(:id =>1).first
+
     render json: Project.find_by_sql("SELECT p.name 
-      FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t WHERE p.id=t.project_id GROUP BY `project_id` AND t.status HAVING count(`id`)>10) ORDER BY p.id ASC")  
+      FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t 
+      WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")    
+
   end  
 end

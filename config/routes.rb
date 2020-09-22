@@ -9,12 +9,8 @@ Rails.application.routes.draw do
   get 'tasks_exact_matches_both_name_status' => 'technical_requirements#tasks_exact_matches_both_name_status'
   get 'list_project_more_10_tasks_true' => 'technical_requirements#list_project_more_10_tasks_true'
   
-
-
-   
   get 'sessions/new'
   root 'static_pages#home'
-  get  'static_pages/home'
   get  'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'

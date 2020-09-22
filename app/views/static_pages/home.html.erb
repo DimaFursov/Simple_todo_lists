@@ -7,24 +7,26 @@
   </head>
   <body>
     <% if logged_in? %>
-      <p>technical_requirements:
-        <%= link_to 'all_status_asc', all_status_asc_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'all_tasks_count_in_project_desc', all_tasks_count_in_project_desc_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'all_count_tasks_project_order_projects_name', all_count_tasks_project_order_projects_name_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'tasks_projects_name_beginning_n', tasks_projects_name_beginning_n_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'list_projects_cont_a_middle', list_projects_cont_a_middle_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'tasks_duplicate_name_asc', tasks_duplicate_name_asc_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'tasks_exact_matches_both_name_status', tasks_exact_matches_both_name_status_path, class: "btn btn-xs btn-default" %>
-        <%= link_to 'list_project_more_10_tasks_true', list_project_more_10_tasks_true_path, class: "btn btn-xs btn-default" %>
-      </p>
+      
       <h2 class="current-date"><%= @date%></h2>
       <p>  <%= render 'shared/user_info' %>  </p>
-      <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <h1> Simple todo list </h1>
       <p> From ruby garage </p>
       <%= render 'shared/listprojects' %>
       <button class="btn btn-primary" type="button" id="add-todo-list">+ add_TODO_List</button>
         <%= render 'shared/project_form' %>
+      <p>technical_requirements:
+        <%= link_to 'all_status_asc', all_status_asc_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'all_tasks_count_in_project_desc', all_tasks_count_in_project_desc_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'all_count_tasks_project_order_projects_name', all_count_tasks_project_order_projects_name_path,
+         class: "btn btn-xs btn-default" %>
+        <%= link_to 'tasks_projects_name_beginning_n', tasks_projects_name_beginning_n_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'list_projects_cont_a_middle', list_projects_cont_a_middle_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'tasks_duplicate_name_asc', tasks_duplicate_name_asc_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'tasks_exact_matches_both_name_status', tasks_exact_matches_both_name_status_path, class: "btn btn-xs btn-default" %>
+        <%= link_to 'list_project_more_10_tasks_true', list_project_more_10_tasks_true_path, class: "btn btn-xs btn-default" %>
+      </p>  
+      <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
       <% else %>
       <ul class="nav">
         <li><p> Simple todo list </p></li>
