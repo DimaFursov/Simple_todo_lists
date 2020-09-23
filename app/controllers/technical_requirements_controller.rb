@@ -2,31 +2,61 @@ class TechnicalRequirementsController < ApplicationController
 
   #1. get all statuses, not repeating, alphabetically ordered
   def all_status_asc
-    #render json: Project.select(:name, :status).order(name: :asc).unscoped
-    render json: Task.select(:status).distinct.order(status: :asc)
-    #Task.select(:status).distinct.order(status: :asc)
-
+    render json: Task.unscoped.select(:status).distinct.order(status: :asc)
+    #Task.unscoped.order(status: :asc)
   end
 
   #2. get the count of all tasks in each project, order by tasks count descending
   def all_tasks_count_in_project_desc
-
-    render json: Project.find_by_sql("SELECT p.name as project_name, count(t.id) as count_tasks 
-      FROM projects p LEFT JOIN tasks t ON  t.project_id = p.id  GROUP BY project_name ORDER BY count_tasks DESC")
+    projects = Project.includes(:tasks).map do |project|
+      {
+        tasks_count: project.tasks.count,
+        project_name: project.name
+      }
+    end
+    projects.sort_by! { |hsh| -hsh[:tasks_count]}
+    render json: projects
   end
 
   #3. get the count of all tasks in each project, order by projects names
   def all_count_tasks_project_order_projects_name
+    projects = Project.includes(:tasks).map do |project|
+      {
+        tasks_count: project.tasks.count,
+        project_name: project.name
+      }
+    end
+    projects.sort_by! { |x| x[:project_name]}  
+    render json: projects
+=begin    
     render json: Project.find_by_sql("SELECT p.name as project_name, count(t.id) as count_tasks 
       FROM projects p LEFT JOIN tasks t ON  t.project_id = p.id  GROUP BY project_name ORDER BY project_name")
+=end      
   end  
 
   #4. get the tasks for all projects having the name beginning with "N" letter
   def tasks_projects_name_beginning_n
+    projects = Project.includes(:tasks).map do |project|
+      {
+        project_name: if project.name.match(/^N/) 
+          then 
+          project.tasks.each do |task|
+          {
+          task_name: task
+          }
+          end
+        end
+      }
+    end
+    
+    
+    render json: projects
+=begin     
     render json: Project.find_by_sql("SELECT t.name as task_name, p.name as project_name 
       FROM tasks t, projects p 
       WHERE p.name LIKE 'N%' AND t.project_id = p.id")
     # 'N%'
+=end       
   end
 
   #5. get the list of all projects containing the 'a' letter in the middle of
