@@ -3,7 +3,6 @@ class TechnicalRequirementsController < ApplicationController
   #1. get all statuses, not repeating, alphabetically ordered
   def all_status_asc
     render json: Task.unscoped.select(:status).distinct.order(status: :asc)
-    #Task.unscoped.order(status: :asc)
   end
 
   #2. get the count of all tasks in each project, order by tasks count descending
@@ -24,7 +23,7 @@ class TechnicalRequirementsController < ApplicationController
       {
         tasks_count: project.tasks.count,
         project_name: project.name
-      }
+      } 
     end
     projects.sort_by! { |x| x[:project_name]}  
     render json: projects
@@ -36,34 +35,36 @@ class TechnicalRequirementsController < ApplicationController
 
   #4. get the tasks for all projects having the name beginning with "N" letter
   def tasks_projects_name_beginning_n
-    projects = Project.includes(:tasks).map do |project|
+  projects = Project.includes(:tasks).unscoped.where("projects.name LIKE 'N%'").map do |project|
       {
-        project_name: if project.name.match(/^N/) 
-          then 
+      project_name: project.name,
+        
+      tasks_names:
+        if project.name.match(/^N/) 
           project.tasks.each do |task|
           {
-          task_name: task
+            task:task
           }
           end
         end
       }
     end
     
-    
-    render json: projects
-=begin     
-    render json: Project.find_by_sql("SELECT t.name as task_name, p.name as project_name 
+    render json: projects#[:project_name ,:tasks_names ]    
+  end      
+=begin    
+    render json: Project.find_by_sql("
+      SELECT t.name as task_name, p.name as project_name 
       FROM tasks t, projects p 
       WHERE p.name LIKE 'N%' AND t.project_id = p.id")
-    # 'N%'
-=end       
-  end
-
+=end      
+  
   #5. get the list of all projects containing the 'a' letter in the middle of
   #the name, and show the tasks count near each project. Mentionthat there can exist projects without tasks and tasks with
   # project_id = NULL
   def list_projects_cont_a_middle
-    render json: Project.find_by_sql("SELECT p.name as project_name, count(t.id) as count_tasks 
+    render json: Project.find_by_sql("
+      SELECT p.name as project_name, count(t.id) as count_tasks 
       FROM projects p LEFT JOIN tasks t on t.project_id = p.id 
       WHERE p.name LIKE '%a%' AND p.name NOT LIKE 'a%' AND p.name NOT LIKE '%a' GROUP BY project_name")
   end
