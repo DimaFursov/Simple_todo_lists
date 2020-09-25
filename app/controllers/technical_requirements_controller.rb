@@ -65,61 +65,82 @@ class TechnicalRequirementsController < ApplicationController
   def tasks_duplicate_name_asc
     tasks = Task.unscoped.select(:name).distinct.order(name: :asc).map do |task|
       {
-        distinct_task_name: task.name
+        distinct_task_name: task.name #project.tasks
       }
     end 
     render json: tasks
     #render json: Project.find_by_sql("SELECT name FROM tasks GROUP BY name HAVING count(*)>1 ORDER BY name")
   end  
 
-  #7. get list of tasks having several exact matches of both name and
-  #status, from the project 'Garage'. Order by matches count
-  def tasks_exact_matches_both_name_status_from_project_name_Garage
-    #render json: Project.find_by_sql("SELECT t.name, COUNT(*) as task_count, t.status 
+  
+    #render json: Project.find_by_sql("
+    #  SELECT t.name, COUNT(*) as task_count, t.status 
     #  FROM tasks t, projects p 
     #  WHERE p.name='Garage' AND t.project_id = p.id GROUP BY t.name, t.status HAVING count(*)>1 ORDER BY task_count")
     #  Project.includes(:tasks).where("'tasks.status=true'").references(:tasks)
     # => projects = Project.includes(:tasks).where('tasks.name = ?', 'Garage').map do |project|
     #  Project.includes(:tasks).where("'projects.name = Garage' AND 'tasks.status=true'")
 
-    projects = Project.includes(:tasks).where('projects.name = ?', 'Garage').map do |project|
+=begin
+  tasks = Task.where("tasks.project_id = 4").select(:name, :status).distinct.map do |task|
+        
+        {
+          distinct_task_name: task.name,
+          distinct_task_status: task.status,
+          project_id: project.id,
+          
+        }
+        end       
+        b = project.tasks.each do |task| 
+            {
+              #task: task.distinct.count(:name, :status)
+            }
+            end
+=end    
+    
 
       #.calculate(:count, :all)
       # User.joins(:topics).where(topics: { id: [1, 2, 3] }).group('users.id').having('count(distinct topics.id) = 3')
       #@products = @products.joins(:areas).where('areas.id' => area_ids).group('products.id').having("count(areas.id) >= ?",area_ids.count) unless area_ids.blank?
-      #@products = @products.joins(:surfaces).where('surfaces.id' => surface_ids).group('products.id').having("count(surfaces.id) >= ?",surface_ids.count) unless surface_ids.blank?
-      #Project.includes(:tasks).where("'tasks.status=true'")
-      tasks = Task.unscoped.select(:name, :status).distinct.order(name: :asc).map do |task|
-        {
-          distinct_task_name: task.name,
-          distinct_task_status: task.status,
-        }
-        end
+      #@products = @products.joins(:tasks).where('surfaces.id' => surface_ids).group('products.id').having("count(surfaces.id) >= ?",surface_ids.count) unless surface_ids.blank?
+      # projects = Project.includes(:tasks)
 
-      a = project.tasks.each do |task| 
-        {
-          task: if task.name then task.name end 
-        }
-        end
+  #7. get list of tasks having several exact matches of both name and status,
+  #   from the project 'Garage'. Order by matches count
+  def tasks_exact_matches_both_name_status_from_project_name_Garage    
+    projects = Project.includes(:tasks).where('projects.name = ?', 'Garage').map do |project|  
+      projects2 = Project.includes(:tasks).where("'tasks.status=true'")
       tasks_count1 = Task.distinct.count(:name, :status)
       
-
+      # check Garage id tasks.project_id = 4       
+      garage_id = project.id
+      tasksG = Task.where('tasks.project_id = ?', '4').select(:name, :status).distinct      
+      #.order(name: :asc)
+      
+      #tasksG.sort_by! { |hsh| -hsh[:tasks_count]}
+      
       count = Task.unscoped.select(:name, :status).distinct.order(name: :asc)
       {
-        count_tasks: tasks_count1,
+        project_id: project.id,
         project_name: project.name,
-        project_tasks: project.tasks,
+        garage_tasks_distinct: tasksG,
+        #count_tasks: tasks_count1,
+        #project_id: project.id,
+        #project_tasks1: project.tasks.count,
+        #project_tasks2: tasks.count,
+        #b: b
         #tasks: a
       }
     end
     #projects.sort_by! { |hsh| -hsh[:tasks_count]}
-    #tasks.sort_by! { |hsh| -hsh[:tasks_count]}
+    #
     render json: projects
+
   end    
 
   #8. - get the list of project names having more than 10 tasks in status'completed'. Order by project_id
   def list_project_more_10_tasks_true
-    #["name = ? AND status = true", "First Subject"]
+    
     #Project.select(:project_id).where("status = ?", "true").order(:project_id)
     #Project.where(:id =>1).first
 
