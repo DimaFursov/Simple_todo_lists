@@ -17,6 +17,7 @@ before_action :find_task,      only: [ :update, :destroy]
   
   def create
     params[:task][:position] = 1
+    params[:task][:status] = false # status: false
     @task = @project.tasks.new(task_params)
     if @task.save
       @tasks = Task.all
