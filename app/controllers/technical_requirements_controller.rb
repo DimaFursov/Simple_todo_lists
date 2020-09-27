@@ -72,6 +72,13 @@ class TechnicalRequirementsController < ApplicationController
     #render json: Project.find_by_sql("SELECT name FROM tasks GROUP BY name HAVING count(*)>1 ORDER BY name")
   end  
 
+=begin
+    render json: Project.find_by_sql("
+      SELECT t.name, COUNT(*) as task_count, t.status 
+      FROM tasks t, projects p 
+      WHERE p.name='Garage' AND t.project_id = p.id 
+      GROUP BY t.name, t.status HAVING count(*)>1 ORDER BY task_count")
+=end    
   #7. get list of tasks having several exact matches of both name and status,
   #   from the project 'Garage'. Order by matches count
   def tasks_exact_matches_both_name_status_from_project_name_Garage    
@@ -80,12 +87,17 @@ class TechnicalRequirementsController < ApplicationController
       garage_tasks_distinct = Task.where('tasks.project_id = ?', garage_id).select(:name, :status).distinct      
       # Order by matches count
       count = Task.where('tasks.project_id = ?', garage_id).select(:name, :status).distinct.count(:name, :status)
-      count2 = Task.where('tasks.project_id = ?', garage_id).select(:name, :status).distinct.count(:name, :status)
+      
+      Task.unscoped.select([:id, :name])
+      # garage_id = 4
+      # Task.all.uniq
+      count_number = Task.unscoped.where('tasks.project_id = ?', garage_id).group(:name, :status).count(:name, :status)
       # .having('count(*)>1')#.group('count')
       {
-        garage_tasks_distinct_count: count,
+        #garage_tasks_distinct_count: count,
         project_name: project.name,
-        garage_tasks_distinct: garage_tasks_distinct,
+        garage_tasks_distinct_count: count_number,
+        #garage_tasks_distinct: garage_tasks_distinct,
       }
     end
     #projects.sort_by! { |hsh| -hsh[:garage_tasks_distinct_count]}
@@ -94,37 +106,22 @@ class TechnicalRequirementsController < ApplicationController
 
   #8. - get the list of project names having more than 10 tasks in status'completed'. Order by project_id
   def list_project_more_10_tasks_true
-    
-    #Project.select(:project_id).where("status = ?", "true").order(:project_id)
-    #Project.where(:id =>1).first
-
-    projects = Project.includes(:tasks).unscoped.map do |project|
-      a = project.tasks.each do |task| 
-        count = 0
-          if task.status == true 
-            count+=1
-            if count > 10 then
-              {
-                b: b,
-                task_count1: task.status,
-                count: count
-              }
-            end
-          end
-        end
-      {
-        projects: project.name,
-        count_tasks: a
-      }
-    end
-    projects.sort_by! { |x| x[projects]}  
-    render json: projects
-
 =begin    
-    render json: Project.find_by_sql("SELECT p.name 
+    render json: Project.find_by_sql("
+      SELECT p.name 
       FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t 
-      WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")    
-=end      
-
+      WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")  
+=end
+    projects = Project.unscoped.includes(:tasks).unscoped.map do |project|
+    if Task.where('tasks.project_id = ?', project.id).limit(11).count(status: true) > 10 then
+      {
+        project_id: project.id,
+        project_name: project.name,
+      }
+      end
+    end
+    projects = projects.compact
+    projects.sort_by! { |hsh| -hsh[:project_id]}
+    render json: projects
   end  
 end
