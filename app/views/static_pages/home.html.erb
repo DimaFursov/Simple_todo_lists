@@ -27,12 +27,10 @@
         <%= link_to 'list_project_more_10_tasks_true', list_project_more_10_tasks_true_path, class: "btn btn-xs btn-default" %>
       </p>  
       <p>  <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>  </p>
-      <% else %>
-      <ul class="nav">
-        <li><p> Simple todo list </p></li>
-        <li><%= link_to "Log in", login_path, class: "btn btn-default btn-xs" %></li>
-        <li><%= link_to "Sign up", signup_path, class: "btn btn-primary btn-xs" %></li>
-      </ul>
+    <% else %>
+        <p> Simple todo list </p>
+        <p><%= link_to "Log in", login_path, class: "btn btn-default btn" %></p>
+        <p><%= link_to "Sign up", signup_path, class: "btn btn-primary btn" %></p>
     <% end %>  
   </body>
 </html>

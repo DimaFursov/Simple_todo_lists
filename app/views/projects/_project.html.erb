@@ -2,28 +2,28 @@
 <ul class="project_form" id="project-<%= project.id %>">  
   <form class="project form-inline has-error">
     <span class="form_delete_project" id="form_delete_project_<%=project.id%>">
-      <div class="delete_project btn btn-default btn-sm actions" id="delete_button_<%=project.id%>" data-id="<%=project.id%>">DELETE</div>
+      <div class="delete_project btn btn-default btn-sm actions glyphicon glyphicon-trash" id="delete_button_<%=project.id%>" data-id="<%=project.id%>"></div><!--DELETE-->
     </span>
     <span class="project_input" id="project_input_<%=project.id%>">
       <label class="project-update-control-label control-label" for="inputError" 
              id="project-update-id-error-<%= project.id %>" data-id="<%=project.id%>"></label>
       <input class="project_edit input-sm" id="project_edit_<%=project.id%>" value="<%= project.name %>"></input>
-      <div class="update_project btn btn-success btn-sm" data-id="<%=project.id%>">UPDATE</div>               
+      <div class="update_project btn btn-success btn-sm actions glyphicon glyphicon-pencil" data-id="<%=project.id%>"></div><!--UPDATE-->
     </span>
     <span class="form_project_name" id="form_project_name_<%=project.id%>">
       <div class="project_name input-sm" id="project_name_<%=project.id%>"><%= project.name %></div>        
-      <div class="edit_project btn btn-default btn-sm actions" data-id="<%=project.id%>">EDIT</div>
+      <div class="edit_project btn btn-default btn-sm actions glyphicon glyphicon-pencil" data-id="<%=project.id%>"></div><!--EDIT-->
     </span>    
   </form>
-  <!-- new-task-form -->
-  <form role="form" class="new-task-form form-inline" id="project-<%= project.id %>">
+  <!-- new-task-form input-group-btn -->
+  <form role="form" class="new-task-form" id="project-<%= project.id %>">
     <div class="form-group has-error">
-      <label class="task-control-label control-label" for="inputError" 
-             id="project-id-new-task-error-<%= project.id %>" data-id="<%=project.id%>"></label>
-      <input class="new_task_field input-sm" id="project_task_<%=project.id%>" 
+      <input type="text" class="new_task_field input-sm" id="project_task_<%=project.id%>" 
              placeholder="Start typing here to create a task..."></input>
-    </div>
-    <div type="submit" class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
+      <div type="submit" class="new_task btn btn-success btn-sm" data-id="<%=project.id%>">Add Task</div>
+      <label class="task-control-label control-label" for="inputError" 
+             id="project-id-new-task-error-<%= project.id %>" data-id="<%=project.id%>"></label>  
+    </div>         
   </form>
   <!-- _task -->
   <%= render 'shared/taskslist', project: project %>

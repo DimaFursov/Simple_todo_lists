@@ -70,7 +70,7 @@ class TechnicalRequirementsController < ApplicationController
     end 
     render json: tasks
     #render json: Project.find_by_sql("SELECT name FROM tasks GROUP BY name HAVING count(*)>1 ORDER BY name")
-  end  
+  end 
 
 =begin
     render json: Project.find_by_sql("
@@ -82,25 +82,13 @@ class TechnicalRequirementsController < ApplicationController
   #7. get list of tasks having several exact matches of both name and status,
   #   from the project 'Garage'. Order by matches count
   def tasks_exact_matches_both_name_status_from_project_name_Garage    
-    projects = Project.includes(:tasks).where('projects.name = ?', 'Garage').map do |project|  #.order(garage_tasks_distinct_count: :asc)
-      garage_id = project.id
-      garage_tasks_distinct = Task.where('tasks.project_id = ?', garage_id).select(:name, :status).distinct      
-      # Order by matches count
-      count = Task.where('tasks.project_id = ?', garage_id).select(:name, :status).distinct.count(:name, :status)
-      
-      Task.unscoped.select([:id, :name])
-      # garage_id = 4
-      # Task.all.uniq
-      count_number = Task.unscoped.where('tasks.project_id = ?', garage_id).group(:name, :status).count(:name, :status)
-      # .having('count(*)>1')#.group('count')
+    projects = Project.includes(:tasks).unscoped.where('projects.name = ?', 'Garage').map do |project|
+      count_group_name_status = project.tasks.unscope(:order).group(:name, :status).order('count_name desc').having('count_name > 1').count(:name,:status)
       {
-        #garage_tasks_distinct_count: count,
         project_name: project.name,
-        garage_tasks_distinct_count: count_number,
-        #garage_tasks_distinct: garage_tasks_distinct,
+        garage_tasks_distinct_count: count_group_name_status,
       }
     end
-    #projects.sort_by! { |hsh| -hsh[:garage_tasks_distinct_count]}
     render json: projects
   end    
 
@@ -113,7 +101,7 @@ class TechnicalRequirementsController < ApplicationController
       WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")  
 =end
     projects = Project.unscoped.includes(:tasks).unscoped.map do |project|
-    if Task.where('tasks.project_id = ?', project.id).limit(11).count(status: true) > 10 then
+    if project.tasks.limit(11).count(status: true) > 10 then
       {
         project_id: project.id,
         project_name: project.name,

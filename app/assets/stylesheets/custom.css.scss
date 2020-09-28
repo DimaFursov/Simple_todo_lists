@@ -83,7 +83,7 @@ body {
       cursor: pointer;
     }
     .update_project{
-      display: block;
+      /*display: block;*/
       float: right;
       margin-right: 10px;
       cursor: pointer;
@@ -127,12 +127,13 @@ body {
       /*width: available;*/
       /*padding-right: 120%;*/
       /*height: 30px !important*/
-      text-align: left;
-      Width: 120%;
+      /*text-align: left !important;*/
+      width: 75%;
     }
     .new_task{
-      float: right;
-      cursor: pointer;        
+      /*float: right;*/
+      cursor: pointer;
+      /*position: relative;*/
     }      
     .btn-success{
       background: linear-gradient(to bottom, #c7ffc7, #4cae4c);/*$brand-success;*/
