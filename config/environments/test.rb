@@ -25,6 +25,7 @@ Rails.application.configure do
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
+  #config.action_controller.forgery_protection_origin_check = true
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
@@ -33,6 +34,7 @@ Rails.application.configure do
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
+  #config.active_support.test_order = :sorted
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

@@ -13,7 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/widget
-//= require jquery-ui/sortable
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/widgets/mouse
+//= require jquery-ui/widgets/draggable
+//= require jquery-ui/widgets/droppable
+//= require jquery-ui/widgets/resizable
+//= require jquery-ui/widgets/selectable
 //= require turbolinks
 //= require_tree .
 /**/
@@ -24,7 +29,7 @@ $(document).ready(function() {
   $("#add-todo-list").click(function() {
       $(".project-create-form").toggle();    
     });
-  $(".project-create-form").show("slow");// -  ------------- remove afterfinish work
+  //$(".project-create-form").show("slow");// -  ------------- remove afterfinish work
   /*  ----------------------------- TASK drag and drop ----------------------------------*/
   $(".tasks_tbody").sortable({
     update: function(e, ui){

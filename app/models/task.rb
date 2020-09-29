@@ -1,4 +1,6 @@
-class Task < ActiveRecord::Base
+class Task < ApplicationRecord
+  # ApplicationRecord
+  # ActiveRecord::Base
   acts_as_list scope: :project
   belongs_to :project
   

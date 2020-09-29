@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  # config.enable_dependency_loading = true
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -13,6 +13,7 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+  #config.action_controller.per_form_csrf_tokens = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
@@ -36,7 +37,9 @@ Rails.application.configure do
   config.assets.digest = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
-
+  config.assets.precompile += ["custom.css.scss"]
+  config.assets.precompile += ["projects.js"]
+  config.assets.precompile += ["tasks.js"]
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
@@ -76,4 +79,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  #If you're using schema_search_path or other PostgreSQL extensions, you can control how the schema is dumped. Set to :all to generate all dumps, or to :schema_search_path to generate from schema search path.
+  # config.active_record.dump_schemas = :all
 end

@@ -1,4 +1,6 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
+  # ApplicationRecord
+  # ActiveRecord::Base
   has_many :projects, dependent: :destroy  
   attr_accessor :remember_token
   validates :name, presence: true, length: { maximum: 50 }

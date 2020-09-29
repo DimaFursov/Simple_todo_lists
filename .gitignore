@@ -12,8 +12,13 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+#/log/*
+#!/log/.keep
+#/tmp
+# Ignore all logfiles and tempfiles.
 /log/*
+/tmp/*
 !/log/.keep
-/tmp
+!/tmp/.keep
 # Игнорировать файлы Spring
 /spring/*.pid

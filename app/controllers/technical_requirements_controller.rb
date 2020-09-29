@@ -81,12 +81,16 @@ class TechnicalRequirementsController < ApplicationController
 =end    
   #7. get list of tasks having several exact matches of both name and status,
   #   from the project 'Garage'. Order by matches count
-  def tasks_exact_matches_both_name_status_from_project_name_Garage    
+  def tasks_exact_matches_both_name_status_from_project_name_Garage  
+  #'projects.name = ?', 'Garage'  
     projects = Project.includes(:tasks).unscoped.where('projects.name = ?', 'Garage').map do |project|
-      count_group_name_status = project.tasks.unscope(:order).group(:name, :status).order('count_name desc').having('count_name > 1').count(:name,:status)
+      count_group_name_status = project.tasks.unscope(:order).group(:name, :status).order('count_name desc').having('count_name > 1').count(:name)#:order#tasks_status#,:status
+      # tasks_status
+      #Project.includes(:tasks).unscoped.where(name: 'Garage').map do |project| project.tasks.unscope(:order).group(:name).order('count_name desc').having('count_name > 1').count(:name) end
+      #Project.includes(:tasks).unscoped.where('projects.name = ?', 'Garage').map do |project| project.tasks.unscope(:order).group(:name, :status).order('count_name desc').having('count_name > 1').count(:name) end
       {
         project_name: project.name,
-        garage_tasks_distinct_count: count_group_name_status,
+        garage_tasks_count_desc: count_group_name_status,
       }
     end
     render json: projects
@@ -100,16 +104,31 @@ class TechnicalRequirementsController < ApplicationController
       FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t 
       WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")  
 =end
-    projects = Project.unscoped.includes(:tasks).unscoped.map do |project|
-    if project.tasks.limit(11).count(status: true) > 10 then
+
+    projects = Project.includes(:tasks).unscoped.map do |project|
+      #q = project.tasks.limit(11).group(:status).order('task_status desc').having('task_status > 10').count(:status)
+    #.unscope(:order).group(:name, :status).order('count_name desc').having('count_name > 1').count(:name)      
+    #Project.unscoped.includes(:tasks).unscoped.map do |project| project.tasks.having('status = ?', 'true'>9) end
+    #Project.unscoped.includes(:tasks).unscoped.map do |project| project.tasks.unscope(:order).having(status: true).order('count_name desc').limit(11) end
+      # if Task.where('tasks.project_id = ?', project.id).limit(11).count(status: true) > 10 then
+      # if project.tasks.limit(11).count(status: true) > 10 
+      a = Task.unscoped.where('status = ?', 'true')
+      #Task.where('tasks.project_id = ?', project.id).limit(11).count(status: true)
+      q = project.tasks.group(:status).having(status: true)#.count(:status)
+      #if project.tasks.where(status: true).count(:status) > 10
+      c = project.tasks.where(status: true).count(:status)
       {
         project_id: project.id,
         project_name: project.name,
+        pr_c_t: project.tasks.count,
+        q: q,
+        a: a,
+        c: c #0
       }
-      end
+      #end
     end
-    projects = projects.compact
-    projects.sort_by! { |hsh| -hsh[:project_id]}
+    #projects = projects.compact
+    #projects.sort_by! { |hsh| -hsh[:project_id]}
     render json: projects
   end  
 end
