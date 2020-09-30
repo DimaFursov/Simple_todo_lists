@@ -68,7 +68,6 @@ class TechnicalRequirementsController < ApplicationController
   #7. get list of tasks having several exact matches of both name and status,
   #   from the project 'Garage'. Order by matches count
   def tasks_exact_matches_both_name_status_from_project_name_Garage  
-  #projects = Project.includes(:tasks).unscoped.where('projects.name = ?', 'Garage').map do |project| project.tasks.unscope(:order).group(:name, :status).order('count_name desc').having('count(name) > 1').count(:name) end
     projects = Project.includes(:tasks).unscoped.where('projects.name = ?', 'Garage').map do |project|
       count_group_name_status = project.tasks.unscope(:order).group(:name, :status).order('count(name) desc').having('count(name) > 1').count(:name)
       # pg count(name)
@@ -88,19 +87,15 @@ class TechnicalRequirementsController < ApplicationController
       FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t 
       WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")  
 =end
+    # projects = Project.includes(:tasks).unscoped.map do |project| project.tasks.unscope(:order).group(:status).order(:project_id).having('count(status) > 10').count(:status) end
     projects = Project.includes(:tasks).unscoped.map do |project|
-      
-      a = project.tasks.unscope(:order).group(:status).order(:project_id).having('count_status > 10').count(:status)
-      
+      a = project.tasks.unscope(:order).group(:status).order(:project_id).having('count(status) > 10').count(:status)
       {
         project_name: project.name,
-        a: a
+        count_status_more_10: a
       }
-      #end
     end
     #projects = projects.compact
-    #projects.sort_by! { |hsh| -hsh[:project_id]}
     render json: projects
-
   end  
 end
