@@ -6,7 +6,6 @@ gem 'rails',                '5.2.2'
 gem 'bcrypt',               '3.1.7'
 gem 'faker',                '1.4.2'
 gem 'bootstrap-sass', '~> 3.4.1'
-#gem 'puma', '~> 3.11'
 gem 'sass-rails',           '6.0.0'#'5.0.2' #6.0.0
 #gem 'sass-rails', '~> 5.0'
 gem 'uglifier',             '2.5.3'
@@ -44,4 +43,5 @@ end
 group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
+  gem 'puma', '~> 3.11'
 end
