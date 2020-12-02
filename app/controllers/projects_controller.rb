@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only:    [ :update, :destroy]
-  before_action :logged_in_user, only: [ :create, :update, :destroy, :defFromProjectsController, :show]
+  before_action :logged_in_user, only: [ :create, :update, :destroy, :show]
   before_action :correct_user,   only: [ :update, :destroy]
   
   def show 

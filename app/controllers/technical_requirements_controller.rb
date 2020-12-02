@@ -87,12 +87,15 @@ class TechnicalRequirementsController < ApplicationController
       FROM projects p WHERE EXISTS (SELECT `project_id` FROM tasks t 
       WHERE p.id=t.project_id GROUP BY `project_id` AND t.status='true' HAVING count(*)>10) ORDER BY p.id ASC")  
 =end
-    # projects = Project.includes(:tasks).unscoped.map do |project| project.tasks.unscope(:order).group(:status).order(:project_id).having('count(status) > 10').count(:status) end
+    # projects = Project.includes(:tasks).unscoped.map do |project| project.tasks.unscope(:order).where(status: ["true"]).group(:status).having('count(status) > 10').count(:status) end
     projects = Project.includes(:tasks).unscoped.map do |project|
-      a = project.tasks.unscope(:order).group(:status).order(:project_id).having('count(status) > 10').count(:status)
+      #a = project.tasks.unscope(:order).group(:status).order(:project_id).having('count(status) > 10').count(:status)
+      a = project.tasks.unscope(:order).group(:status).having('count(status) > 10').count(:status)
+      #b = project.tasks.unscope(:order).where(status: [true]).group(:status).having('count(status) > 10').select(:name)
       {
         project_name: project.name,
-        count_status_more_10: a
+        count_status_more_10: a,
+        #b: b
       }
     end
     #projects = projects.compact
